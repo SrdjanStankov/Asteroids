@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpaceshipScript : MonoBehaviour
 {
@@ -13,8 +11,7 @@ public class SpaceshipScript : MonoBehaviour
     [SerializeField] private KeyCode right;
 
     [SerializeField] private Sprite sprite;
-
-    SpriteRenderer renderer;
+    private SpriteRenderer renderer;
     private float translation;
     private float rotation;
 
@@ -23,17 +20,17 @@ public class SpaceshipScript : MonoBehaviour
 
 
     public KeyCode Backwards { get => backwards; private set => backwards = value; }
-    public KeyCode Forward { get { return forward; } set { forward = value; } }
-    public KeyCode Left { get { return left; } set { left = value; } }
-    public KeyCode Right { get { return right; } set { right = value; } }
+    public KeyCode Forward { get => forward; set => forward = value; }
+    public KeyCode Left { get => left; set => left = value; }
+    public KeyCode Right { get => right; set => right = value; }
 
-    void Start()
+    private void Start()
     {
         renderer = GetComponent<SpriteRenderer>();
         renderer.sprite = sprite;
     }
 
-    void Update()
+    private void Update()
     {
         translation = 0;
         rotation = -Input.GetAxis("Horizontal");
