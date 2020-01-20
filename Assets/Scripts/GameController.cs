@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -13,20 +12,20 @@ public class GameController : MonoBehaviour
     private int currentLvl = 0;
     private int asteroidsToDestroy = 0;
     private float currentAsteroidSpeed = 2.75f;
+    private Camera camera;
+    float cameraZOffset;
 
     public GameObject Winner { get; set; }
 
-    void Awake()
-    {
-    }
-
     void Start()
     {
+        camera = Camera.main;
+        cameraZOffset = camera.transform.position.z + 10;
         Players = new List<GameObject>(PlayerCount);
         for (int i = 0; i < PlayerCount; i++)
         {
             var gameObject = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
-            gameObject.transform.position += new Vector3(i, 0, 0);
+            gameObject.transform.position += new Vector3(i, 0, cameraZOffset);
             Players.Add(gameObject);
             var script = gameObject.GetComponent<SpaceshipScript>();
             script.Forward = InputSchema.PlayersInputCombinations[i][Actions.Forward];
@@ -36,6 +35,18 @@ public class GameController : MonoBehaviour
             script.Fire = InputSchema.PlayersInputCombinations[i][Actions.Fire];
         }
     }
+
+    //void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawSphere(Camera.main.ScreenToWorldPoint(new Vector3(-500, UnityEngine.Random.Range(0, Screen.height), 0)),.5f); // leva strana
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawSphere(Camera.main.ScreenToWorldPoint(new Vector3(UnityEngine.Random.Range(0, Screen.width), -500, 0)), .5f); // donja strana
+    //    Gizmos.color = Color.green;
+    //    Gizmos.DrawSphere(Camera.main.ScreenToWorldPoint(new Vector3(Screen.width + 500, UnityEngine.Random.Range(0, Screen.height), 0)), .5f); // desna strana
+    //    Gizmos.color = Color.blue;
+    //    Gizmos.DrawSphere(Camera.main.ScreenToWorldPoint(new Vector3(UnityEngine.Random.Range(0, Screen.width), Screen.height + 500, 0)),.5f); // gornja strana
+    //}
 
     void StartLevel()
     {
@@ -56,23 +67,25 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < 2 + (2 * currentLvl); i++)
         {
             var go = Instantiate(AsteroidPrefab, GetSpwnPositionAsteroid(), Quaternion.identity);
-            go.GetComponent<AsteroidScript>().Speed = currentAsteroidSpeed;
+            var asteroidScript = go.GetComponent<AsteroidScript>();
+            asteroidScript.Speed = currentAsteroidSpeed;
+            asteroidScript.Angle = Random.Range(0, 360);
         }
     }
 
     private Vector3 GetSpwnPositionAsteroid()
     {
-        var Side = UnityEngine.Random.Range(1, 5);
+        var Side = Random.Range(1, 5);
         switch (Side)
         {
             case 1:
-                return new Vector3(-(Screen.width / 2) - 50, UnityEngine.Random.Range(-Screen.height, Screen.height) / 2, 0); // leva strana
+                return camera.ScreenToWorldPoint(new Vector3(-100, Random.Range(0, Screen.height), cameraZOffset)); // leva strana
             case 2:
-                return new Vector3(UnityEngine.Random.Range(-Screen.width, Screen.width) / 2, -(Screen.height / 2) - 50,  0); // donja strana
+                return camera.ScreenToWorldPoint(new Vector3(Random.Range(0, Screen.width), -100, cameraZOffset)); // donja strana
             case 3:
-                return new Vector3((Screen.width / 2) + 50, -UnityEngine.Random.Range(-Screen.height, Screen.height)/2, 0); // desna strana
+                return camera.ScreenToWorldPoint(new Vector3(Screen.width + 100, Random.Range(0, Screen.height), cameraZOffset)); // desna strana
             case 4:
-                return new Vector3(-(UnityEngine.Random.Range(-Screen.width, Screen.width) / 2), (Screen.height / 2) + 50, 0); // gornja strana
+                return camera.ScreenToWorldPoint(new Vector3(Random.Range(0, Screen.width), Screen.height + 100, cameraZOffset)); // gornja strana
             default:
                 return Vector3.zero;
         }
