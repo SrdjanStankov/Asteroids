@@ -9,20 +9,23 @@ public class SpaceshipScript : MonoBehaviour
     [SerializeField] private KeyCode backwards;
     [SerializeField] private KeyCode left;
     [SerializeField] private KeyCode right;
+    [SerializeField] private KeyCode fire;
 
     [SerializeField] private Sprite sprite;
     private SpriteRenderer renderer;
     private float translation;
     private float rotation;
 
-    public float FlightSpeed { get => flightSpeed; private set => flightSpeed = value; }
-    public float RotationSpeed { get => rotationSpeed; private set => rotationSpeed = value; }
+    public float FlightSpeed { get => flightSpeed; set => flightSpeed = value; }
+    public float RotationSpeed { get => rotationSpeed; set => rotationSpeed = value; }
 
 
-    public KeyCode Backwards { get => backwards; private set => backwards = value; }
+    public KeyCode Backwards { get => backwards; set => backwards = value; }
     public KeyCode Forward { get => forward; set => forward = value; }
     public KeyCode Left { get => left; set => left = value; }
     public KeyCode Right { get => right; set => right = value; }
+    public KeyCode Fire { get => fire; set => fire = value; }
+    public int Points { get; set; }
 
     private void Start()
     {
