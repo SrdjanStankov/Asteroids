@@ -36,25 +36,10 @@ public class SpaceshipScript : MonoBehaviour
     private void Update()
     {
         translation = 0;
-        rotation = -Input.GetAxis("Horizontal");
 
-        if (Input.GetKey(Forward))
-        {
-            translation = 1;
-        }
-        else if (Input.GetKey(Backwards))
-        {
-            translation = -1;
-        }
+        translation = Input.GetKey(Forward) ? 1 : Input.GetKey(Backwards) ? -1 : 0;
 
-        if (Input.GetKey(Left))
-        {
-            rotation = 1;
-        }
-        else if (Input.GetKey(Right))
-        {
-            rotation = -1;
-        }
+        rotation = Input.GetKey(Left) ? 1 : Input.GetKey(Right) ? -1 : 0;
 
         transform.Rotate(0, 0, rotation * Time.deltaTime * RotationSpeed);
         transform.Translate(0, translation * Time.deltaTime * FlightSpeed, 0);
