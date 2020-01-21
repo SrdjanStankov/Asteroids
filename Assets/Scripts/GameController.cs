@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
     public GameObject PlayerPrefab;
     public GameObject AsteroidPrefab;
 
-    public List<GameObject> Players;
+    private List<GameObject> players;
 
     private int currentLvl = 0;
     private int asteroidsToDestroy = 0;
@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
 
     public GameObject Winner { get; set; }
     public int AsteroidsToDestroy { get => asteroidsToDestroy; set => asteroidsToDestroy = value; }
+    public List<GameObject> Players { get => players; set => players = value; }
 
     private void Start()
     {
@@ -26,32 +27,37 @@ public class GameController : MonoBehaviour
         Players = new List<GameObject>(PlayerCount);
         for (int i = 0; i < PlayerCount; i++)
         {
-            var gameObject = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
-            gameObject.transform.position += new Vector3(i, 0, cameraZOffset);
-            Players.Add(gameObject);
-            var script = gameObject.GetComponent<SpaceshipScript>();
-            script.Forward = InputSchema.PlayersInputCombinations[i][Actions.Forward];
-            script.Backwards = InputSchema.PlayersInputCombinations[i][Actions.Backwards];
-            script.Left = InputSchema.PlayersInputCombinations[i][Actions.Left];
-            script.Right = InputSchema.PlayersInputCombinations[i][Actions.Right];
-            script.Fire = InputSchema.PlayersInputCombinations[i][Actions.Fire];
-            switch (i)
-            {
-                case 0:
-                    script.Sprite = Resources.Load<Sprite>("Spaceship Blue");
-                    break;
-                case 1:
-                    script.Sprite = Resources.Load<Sprite>("Spaceship Green");
-                    break;
-                case 2:
-                    script.Sprite = Resources.Load<Sprite>("Spaceship Red");
-                    break;
-                case 3:
-                    script.Sprite = Resources.Load<Sprite>("Spaceship Purple");
-                    break;
-                default:
-                    break;
-            }
+            StupPlayer(i);
+        }
+    }
+
+    private void StupPlayer(int i)
+    {
+        var gameObject = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
+        gameObject.transform.position += new Vector3(i, 0, cameraZOffset);
+        Players.Add(gameObject);
+        var script = gameObject.GetComponent<SpaceshipScript>();
+        script.Forward = InputSchema.PlayersInputCombinations[i][Actions.Forward];
+        script.Backwards = InputSchema.PlayersInputCombinations[i][Actions.Backwards];
+        script.Left = InputSchema.PlayersInputCombinations[i][Actions.Left];
+        script.Right = InputSchema.PlayersInputCombinations[i][Actions.Right];
+        script.Fire = InputSchema.PlayersInputCombinations[i][Actions.Fire];
+        switch (i)
+        {
+            case 0:
+                script.Sprite = Resources.Load<Sprite>("Spaceship Blue");
+                break;
+            case 1:
+                script.Sprite = Resources.Load<Sprite>("Spaceship Green");
+                break;
+            case 2:
+                script.Sprite = Resources.Load<Sprite>("Spaceship Red");
+                break;
+            case 3:
+                script.Sprite = Resources.Load<Sprite>("Spaceship Purple");
+                break;
+            default:
+                break;
         }
     }
 
@@ -73,7 +79,7 @@ public class GameController : MonoBehaviour
 
         for (int i = 0; i < 2 + (2 * currentLvl); i++)
         {
-            CreateAsteroid(AsteroidType.Large);
+            CreateAsteroid(AsteroidType.Large, GetSpwnPositionAsteroid());
         }
     }
 
@@ -83,9 +89,9 @@ public class GameController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    internal void CreateAsteroid(AsteroidType type)
+    internal void CreateAsteroid(AsteroidType type, Vector3 position)
     {
-        var asteroidObj = Instantiate(AsteroidPrefab, GetSpwnPositionAsteroid(), Quaternion.identity);
+        var asteroidObj = Instantiate(AsteroidPrefab, position, Quaternion.identity);
         var asteroid = asteroidObj.GetComponent<AsteroidScript>();
         asteroid.Angle = UnityEngine.Random.Range(0, 360);
         asteroid.Speed = currentAsteroidSpeed;
@@ -107,6 +113,12 @@ public class GameController : MonoBehaviour
                 break;
         }
         asteroidsToDestroy++;
+    }
+
+    internal void RemovePlayer(GameObject gameObject)
+    {
+        Players.Remove(gameObject);
+        Destroy(gameObject);
     }
 
     private Vector3 GetSpwnPositionAsteroid()
@@ -138,6 +150,8 @@ public class GameController : MonoBehaviour
                 StartLevel();
             }
         }
+
+        
 
         /*
          

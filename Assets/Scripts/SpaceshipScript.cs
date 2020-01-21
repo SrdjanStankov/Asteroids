@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class SpaceshipScript : MonoBehaviour
 {
+    [SerializeField] private int lives;
     [SerializeField] private float flightSpeed;
     [SerializeField] private float rotationSpeed;
 
@@ -13,10 +15,10 @@ public class SpaceshipScript : MonoBehaviour
 
     [SerializeField] private Sprite sprite;
     [SerializeField] private GameObject projectile;
-    
+
     private SpriteRenderer renderer;
     private Sprite projectileSprite;
-    
+
     private float translation;
     private float rotation;
 
@@ -32,6 +34,7 @@ public class SpaceshipScript : MonoBehaviour
     public int Points { get; set; }
     public float Score { get; set; }
     public Sprite Sprite { get => sprite; set => sprite = value; }
+    public int Lives { get => lives; set => lives = value; }
 
     private void Start()
     {
@@ -80,5 +83,19 @@ public class SpaceshipScript : MonoBehaviour
     public void AddPoints(float amount)
     {
         Score += amount;
+    }
+
+    public void RemoveLife(int amount)
+    {
+        Lives--;
+        if (Lives == 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        FindObjectOfType<GameController>().RemovePlayer(gameObject);
     }
 }

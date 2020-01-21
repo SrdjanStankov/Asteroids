@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 599995355}
   - component: {fileID: 599995354}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Singleplayer Controller
   m_TagString: GameController
   m_Icon: {fileID: 0}
@@ -150,12 +150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f09ffa472fa0414e94c72c2e25fde57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerCount: 4
+  PlayerCount: 1
   PlayerPrefab: {fileID: 1483223962363689800, guid: 65462f113b453d34889c42fd9e1f0492,
     type: 3}
   AsteroidPrefab: {fileID: 4886107700194649065, guid: b4f0ad543e4d7694e98bd51b0b702be7,
     type: 3}
-  Players: []
 --- !u!4 &599995355
 Transform:
   m_ObjectHideFlags: 0
@@ -164,11 +163,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 599995353}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.955, y: 0.637, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &616085121
 GameObject:
@@ -251,7 +250,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1205319519
 PrefabInstance:
@@ -323,7 +322,7 @@ PrefabInstance:
     - target: {fileID: 6216811794556097368, guid: 29a30c2021193de42ae769f447d12f65,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6216811794556097368, guid: 29a30c2021193de42ae769f447d12f65,
         type: 3}

@@ -54,13 +54,13 @@ public class AsteroidScript : MonoBehaviour
         switch (asteroid)
         {
             case AsteroidType.Large:
-                gameController.CreateAsteroid(AsteroidType.Medium);
-                gameController.CreateAsteroid(AsteroidType.Medium);
+                gameController.CreateAsteroid(AsteroidType.Medium, transform.position);
+                gameController.CreateAsteroid(AsteroidType.Medium, transform.position);
                 gameController.DestroyAsteroid(gameObject);
                 break;
             case AsteroidType.Medium:
-                gameController.CreateAsteroid(AsteroidType.Small);
-                gameController.CreateAsteroid(AsteroidType.Small);
+                gameController.CreateAsteroid(AsteroidType.Small, transform.position);
+                gameController.CreateAsteroid(AsteroidType.Small, transform.position);
                 gameController.DestroyAsteroid(gameObject);
                 break;
             case AsteroidType.Small:
@@ -69,5 +69,17 @@ public class AsteroidScript : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        collision.gameObject.GetComponent<ProjectileScript>().Spaceship.AddPoints(PointsWorth);
+        DestroyAsteroid(Type);
+        Destroy(collision.gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        collision.gameObject.GetComponent<SpaceshipScript>().RemoveLife(1);
     }
 }

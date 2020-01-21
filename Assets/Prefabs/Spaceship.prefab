@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba93334ee30530344803a2ecd757d862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lives: 3
   flightSpeed: 2.3
   rotationSpeed: 130
   forward: 0

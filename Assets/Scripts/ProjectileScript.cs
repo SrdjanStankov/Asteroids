@@ -44,12 +44,4 @@ public class ProjectileScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        var asteroid = collision.gameObject.GetComponent<AsteroidScript>();
-        Spaceship.AddPoints(asteroid.PointsWorth);
-        asteroid.DestroyAsteroid(asteroid.Type);
-        Destroy(gameObject);
-    }
 }
