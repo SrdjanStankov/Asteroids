@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public static class InputSchema
@@ -14,7 +10,7 @@ public static class InputSchema
         PlayersInputCombinations = new Dictionary<int, Dictionary<Actions, KeyCode>>
         {
             { 0, new Dictionary<Actions, KeyCode>()
-            { 
+            {
                 { Actions.Forward, KeyCode.UpArrow },
                 { Actions.Backwards, KeyCode.DownArrow},
                 { Actions.Left, KeyCode.LeftArrow },
@@ -52,4 +48,9 @@ public static class InputSchema
 public enum Actions
 {
     Forward, Backwards, Left, Right, Fire
+}
+
+public enum AsteroidType
+{
+    Large, Medium, Small
 }

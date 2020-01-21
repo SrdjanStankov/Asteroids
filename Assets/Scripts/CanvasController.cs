@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CanvasController : MonoBehaviour
 {
@@ -8,7 +6,7 @@ public class CanvasController : MonoBehaviour
     public Canvas MultiplayerCanvas;
     public Canvas TournamentCanvas;
 
-    void Start()
+    private void Start()
     {
         MainMenuCanvas.gameObject.SetActive(true);
         MultiplayerCanvas.gameObject.SetActive(false);
@@ -69,7 +67,7 @@ public class CanvasController : MonoBehaviour
     public void BackToMultiplayerCanvas()
     {
         MultiplayerCanvas.gameObject.SetActive(true);
-        MainMenuCanvas.gameObject.SetActive(false); 
+        MainMenuCanvas.gameObject.SetActive(false);
         TournamentCanvas.gameObject.SetActive(false);
     }
 

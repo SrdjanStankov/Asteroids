@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public int PlayerCount = 1;
+    [Range(1, 4)] public int PlayerCount = 1;
     public GameObject PlayerPrefab;
     public GameObject AsteroidPrefab;
 
@@ -13,11 +14,12 @@ public class GameController : MonoBehaviour
     private int asteroidsToDestroy = 0;
     private float currentAsteroidSpeed = 2.75f;
     private Camera camera;
-    float cameraZOffset;
+    private float cameraZOffset;
 
     public GameObject Winner { get; set; }
+    public int AsteroidsToDestroy { get => asteroidsToDestroy; set => asteroidsToDestroy = value; }
 
-    void Start()
+    private void Start()
     {
         camera = Camera.main;
         cameraZOffset = camera.transform.position.z + 10;
@@ -33,25 +35,30 @@ public class GameController : MonoBehaviour
             script.Left = InputSchema.PlayersInputCombinations[i][Actions.Left];
             script.Right = InputSchema.PlayersInputCombinations[i][Actions.Right];
             script.Fire = InputSchema.PlayersInputCombinations[i][Actions.Fire];
+            switch (i)
+            {
+                case 0:
+                    script.Sprite = Resources.Load<Sprite>("Spaceship Blue");
+                    break;
+                case 1:
+                    script.Sprite = Resources.Load<Sprite>("Spaceship Green");
+                    break;
+                case 2:
+                    script.Sprite = Resources.Load<Sprite>("Spaceship Red");
+                    break;
+                case 3:
+                    script.Sprite = Resources.Load<Sprite>("Spaceship Purple");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
-    //void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.yellow;
-    //    Gizmos.DrawSphere(Camera.main.ScreenToWorldPoint(new Vector3(-500, UnityEngine.Random.Range(0, Screen.height), 0)),.5f); // leva strana
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawSphere(Camera.main.ScreenToWorldPoint(new Vector3(UnityEngine.Random.Range(0, Screen.width), -500, 0)), .5f); // donja strana
-    //    Gizmos.color = Color.green;
-    //    Gizmos.DrawSphere(Camera.main.ScreenToWorldPoint(new Vector3(Screen.width + 500, UnityEngine.Random.Range(0, Screen.height), 0)), .5f); // desna strana
-    //    Gizmos.color = Color.blue;
-    //    Gizmos.DrawSphere(Camera.main.ScreenToWorldPoint(new Vector3(UnityEngine.Random.Range(0, Screen.width), Screen.height + 500, 0)),.5f); // gornja strana
-    //}
-
-    void StartLevel()
+    private void StartLevel()
     {
         currentLvl++;
-        asteroidsToDestroy = (2 * currentLvl) + 1;
+        AsteroidsToDestroy = (2 * currentLvl) + 1;
         currentAsteroidSpeed += 0.2f;
 
         if (currentLvl % 4 == 0)
@@ -66,38 +73,67 @@ public class GameController : MonoBehaviour
 
         for (int i = 0; i < 2 + (2 * currentLvl); i++)
         {
-            var go = Instantiate(AsteroidPrefab, GetSpwnPositionAsteroid(), Quaternion.identity);
-            var asteroidScript = go.GetComponent<AsteroidScript>();
-            asteroidScript.Speed = currentAsteroidSpeed;
-            asteroidScript.Angle = Random.Range(0, 360);
+            CreateAsteroid(AsteroidType.Large);
         }
+    }
+
+    internal void DestroyAsteroid(GameObject gameObject)
+    {
+        AsteroidsToDestroy--;
+        Destroy(gameObject);
+    }
+
+    internal void CreateAsteroid(AsteroidType type)
+    {
+        var asteroidObj = Instantiate(AsteroidPrefab, GetSpwnPositionAsteroid(), Quaternion.identity);
+        var asteroid = asteroidObj.GetComponent<AsteroidScript>();
+        asteroid.Angle = UnityEngine.Random.Range(0, 360);
+        asteroid.Speed = currentAsteroidSpeed;
+        asteroid.Type = type;
+        switch (type)
+        {
+            case AsteroidType.Large:
+                asteroid.Speed = currentAsteroidSpeed;
+                break;
+            case AsteroidType.Medium:
+                asteroid.Speed *= 1.5f;
+                asteroidObj.transform.localScale /= 2;
+                break;
+            case AsteroidType.Small:
+                asteroid.Speed *= 2.25f;
+                asteroidObj.transform.localScale /= 4;
+                break;
+            default:
+                break;
+        }
+        asteroidsToDestroy++;
     }
 
     private Vector3 GetSpwnPositionAsteroid()
     {
-        var Side = Random.Range(1, 5);
+        int Side = UnityEngine.Random.Range(1, 5);
         switch (Side)
         {
             case 1:
-                return camera.ScreenToWorldPoint(new Vector3(-100, Random.Range(0, Screen.height), cameraZOffset)); // leva strana
+                return camera.ScreenToWorldPoint(new Vector3(-100, UnityEngine.Random.Range(0, Screen.height), cameraZOffset)); // leva strana
             case 2:
-                return camera.ScreenToWorldPoint(new Vector3(Random.Range(0, Screen.width), -100, cameraZOffset)); // donja strana
+                return camera.ScreenToWorldPoint(new Vector3(UnityEngine.Random.Range(0, Screen.width), -100, cameraZOffset)); // donja strana
             case 3:
-                return camera.ScreenToWorldPoint(new Vector3(Screen.width + 100, Random.Range(0, Screen.height), cameraZOffset)); // desna strana
+                return camera.ScreenToWorldPoint(new Vector3(Screen.width + 100, UnityEngine.Random.Range(0, Screen.height), cameraZOffset)); // desna strana
             case 4:
-                return camera.ScreenToWorldPoint(new Vector3(Random.Range(0, Screen.width), Screen.height + 100, cameraZOffset)); // gornja strana
+                return camera.ScreenToWorldPoint(new Vector3(UnityEngine.Random.Range(0, Screen.width), Screen.height + 100, cameraZOffset)); // gornja strana
             default:
                 return Vector3.zero;
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (Players.Count > 0)
         {
             // TODO: Spawn Power up-s
 
-            if (asteroidsToDestroy <= 0)
+            if (AsteroidsToDestroy <= 0)
             {
                 StartLevel();
             }

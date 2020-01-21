@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class AsteroidScript : MonoBehaviour
 {
@@ -6,14 +7,18 @@ public class AsteroidScript : MonoBehaviour
     [SerializeField] private float angle;
 
     private Camera camera;
+    private GameController gameController;
 
     public float Angle { get => angle; set => angle = value; }
     public float Speed { get => speed; set => speed = value; }
+    public float PointsWorth { get; set; }
+    public AsteroidType Type { get; set; }
 
     private void Start()
     {
         transform.Rotate(0, 0, Angle);
         camera = Camera.main;
+        gameController = FindObjectOfType<GameController>();
     }
 
     private void Update()
@@ -41,6 +46,28 @@ public class AsteroidScript : MonoBehaviour
         if (transform.position.y > positiveBoundary.y)
         {
             transform.position = new Vector3(transform.position.x, negativeBoundary.y, transform.position.z);
+        }
+    }
+
+    internal void DestroyAsteroid(AsteroidType asteroid)
+    {
+        switch (asteroid)
+        {
+            case AsteroidType.Large:
+                gameController.CreateAsteroid(AsteroidType.Medium);
+                gameController.CreateAsteroid(AsteroidType.Medium);
+                gameController.DestroyAsteroid(gameObject);
+                break;
+            case AsteroidType.Medium:
+                gameController.CreateAsteroid(AsteroidType.Small);
+                gameController.CreateAsteroid(AsteroidType.Small);
+                gameController.DestroyAsteroid(gameObject);
+                break;
+            case AsteroidType.Small:
+                gameController.DestroyAsteroid(gameObject);
+                break;
+            default:
+                break;
         }
     }
 }

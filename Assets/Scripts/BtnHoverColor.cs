@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
-using TMPro;
 
 public class BtnHoverColor : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -9,7 +9,7 @@ public class BtnHoverColor : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private TMP_Text text;
 
-    void Start()
+    private void Start()
     {
         text = GetComponentInChildren<TMP_Text>();
     }

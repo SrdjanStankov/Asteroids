@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -149,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f09ffa472fa0414e94c72c2e25fde57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerCount: 3
+  PlayerCount: 4
   PlayerPrefab: {fileID: 1483223962363689800, guid: 65462f113b453d34889c42fd9e1f0492,
     type: 3}
   AsteroidPrefab: {fileID: 4886107700194649065, guid: b4f0ad543e4d7694e98bd51b0b702be7,
@@ -259,10 +260,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6216811794556097372, guid: 29a30c2021193de42ae769f447d12f65,
+    - target: {fileID: 6216811794516070565, guid: 29a30c2021193de42ae769f447d12f65,
         type: 3}
-      propertyPath: m_Name
-      value: Singleplayer Canvas
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6216811794516070565, guid: 29a30c2021193de42ae769f447d12f65,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6216811794516070565, guid: 29a30c2021193de42ae769f447d12f65,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6216811794516070565, guid: 29a30c2021193de42ae769f447d12f65,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6216811794516070565, guid: 29a30c2021193de42ae769f447d12f65,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6216811794556097368, guid: 29a30c2021193de42ae769f447d12f65,
         type: 3}
@@ -369,27 +390,32 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6216811795992959426, guid: 29a30c2021193de42ae769f447d12f65,
+    - target: {fileID: 6216811794556097372, guid: 29a30c2021193de42ae769f447d12f65,
+        type: 3}
+      propertyPath: m_Name
+      value: Singleplayer Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6216811794875911929, guid: 29a30c2021193de42ae769f447d12f65,
         type: 3}
       propertyPath: m_textInfo.characterCount
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6216811795992959426, guid: 29a30c2021193de42ae769f447d12f65,
+    - target: {fileID: 6216811794875911929, guid: 29a30c2021193de42ae769f447d12f65,
         type: 3}
       propertyPath: m_textInfo.spaceCount
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6216811795992959426, guid: 29a30c2021193de42ae769f447d12f65,
+    - target: {fileID: 6216811794875911929, guid: 29a30c2021193de42ae769f447d12f65,
         type: 3}
       propertyPath: m_textInfo.wordCount
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6216811795992959426, guid: 29a30c2021193de42ae769f447d12f65,
+    - target: {fileID: 6216811794875911929, guid: 29a30c2021193de42ae769f447d12f65,
         type: 3}
       propertyPath: m_textInfo.lineCount
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6216811795992959426, guid: 29a30c2021193de42ae769f447d12f65,
+    - target: {fileID: 6216811794875911929, guid: 29a30c2021193de42ae769f447d12f65,
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
@@ -419,52 +445,27 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6216811794516070565, guid: 29a30c2021193de42ae769f447d12f65,
+    - target: {fileID: 6216811795992959426, guid: 29a30c2021193de42ae769f447d12f65,
         type: 3}
       propertyPath: m_textInfo.characterCount
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6216811794516070565, guid: 29a30c2021193de42ae769f447d12f65,
+    - target: {fileID: 6216811795992959426, guid: 29a30c2021193de42ae769f447d12f65,
         type: 3}
       propertyPath: m_textInfo.spaceCount
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6216811794516070565, guid: 29a30c2021193de42ae769f447d12f65,
+    - target: {fileID: 6216811795992959426, guid: 29a30c2021193de42ae769f447d12f65,
         type: 3}
       propertyPath: m_textInfo.wordCount
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6216811794516070565, guid: 29a30c2021193de42ae769f447d12f65,
+    - target: {fileID: 6216811795992959426, guid: 29a30c2021193de42ae769f447d12f65,
         type: 3}
       propertyPath: m_textInfo.lineCount
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6216811794516070565, guid: 29a30c2021193de42ae769f447d12f65,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6216811794875911929, guid: 29a30c2021193de42ae769f447d12f65,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6216811794875911929, guid: 29a30c2021193de42ae769f447d12f65,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6216811794875911929, guid: 29a30c2021193de42ae769f447d12f65,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6216811794875911929, guid: 29a30c2021193de42ae769f447d12f65,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6216811794875911929, guid: 29a30c2021193de42ae769f447d12f65,
+    - target: {fileID: 6216811795992959426, guid: 29a30c2021193de42ae769f447d12f65,
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
