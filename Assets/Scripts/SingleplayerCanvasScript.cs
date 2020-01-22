@@ -11,7 +11,7 @@ public class SingleplayerCanvasScript : MonoBehaviour
 
     private GameController controller;
 
-    public SpaceshipAttribute spaceship { get; set; }
+    public SpaceshipAttribute Spaceship { get; set; }
 
     private void Start()
     {
@@ -20,9 +20,9 @@ public class SingleplayerCanvasScript : MonoBehaviour
 
     private void Update()
     {
-        ScoreText.text = $"Score: {spaceship.Score}";
-        livesLeftText.text = $"Lives: {spaceship.Lives}";
-        playerName.text = $"Player: {spaceship.PlayerName}";
+        ScoreText.text = $"Score: {Spaceship.Score}";
+        livesLeftText.text = $"Lives: {Spaceship.Lives}";
+        playerName.text = $"Player: {Spaceship.PlayerName}";
         lvlText.text = $"Level: {controller.CurrentLvl}";
         remainingAsteroidsText.text = $"Asteroids remaining: {controller.AsteroidsToDestroy}";
     }

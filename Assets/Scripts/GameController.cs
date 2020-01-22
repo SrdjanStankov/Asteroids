@@ -61,7 +61,7 @@ public class GameController : MonoBehaviour
                 break;
         }
 
-        FindObjectOfType<SingleplayerCanvasScript>().spaceship = spaceshipGO.GetComponent<SpaceshipAttribute>();
+        FindObjectOfType<SingleplayerCanvasScript>().Spaceship = spaceshipGO.GetComponent<SpaceshipAttribute>();
     }
 
     private void StartLevel()
