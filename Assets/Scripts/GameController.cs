@@ -81,19 +81,13 @@ public class GameController : MonoBehaviour
         }
     }
 
-    internal void DestroyAsteroid(GameObject gameObject)
-    {
-        AsteroidsToDestroy--;
-        Destroy(gameObject);
-    }
-
     internal void CreateAsteroid(AsteroidType type, Vector3 position)
     {
         var asteroidObj = Instantiate(AsteroidPrefab, position, Quaternion.identity);
-        var asteroid = asteroidObj.GetComponent<AsteroidScript>();
-        asteroid.Angle = UnityEngine.Random.Range(0, 360);
+        var asteroid = asteroidObj.GetComponent<AsteroidMovement>();
+        asteroid.Angle = Random.Range(0, 360);
         asteroid.Speed = currentAsteroidSpeed;
-        asteroid.Type = type;
+        asteroidObj.GetComponent<AsteroidsStats>().Type = type;
         switch (type)
         {
             case AsteroidType.Large:
@@ -137,9 +131,31 @@ public class GameController : MonoBehaviour
         }
     }
 
+    internal void DestroyAsteroid(AsteroidsStats asteroid)
+    {
+        AsteroidsToDestroy--;
+        switch (asteroid.Type)
+        {
+            case AsteroidType.Large:
+                CreateAsteroid(AsteroidType.Medium, asteroid.gameObject.transform.position);
+                CreateAsteroid(AsteroidType.Medium, asteroid.gameObject.transform.position);
+                Destroy(asteroid.gameObject);
+                break;
+            case AsteroidType.Medium:
+                CreateAsteroid(AsteroidType.Small, asteroid.gameObject.transform.position);
+                CreateAsteroid(AsteroidType.Small, asteroid.gameObject.transform.position);
+                Destroy(asteroid.gameObject);
+                break;
+            case AsteroidType.Small:
+                Destroy(asteroid.gameObject);
+                break;
+            default:
+                break;
+        }
+    }
+
     private void Update()
     {
-        print(AsteroidsToDestroy);
         if (Players.Count > 0)
         {
             // TODO: Spawn Power up-s
