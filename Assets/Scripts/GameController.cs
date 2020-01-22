@@ -3,28 +3,28 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    [Range(1, 4)] public int PlayerCount = 1;
-
     public GameObject PlayerPrefab;
     public GameObject AsteroidPrefab;
+    
+    [SerializeField] private float currentAsteroidSpeed = 2.5f;
+
+    private int currentLvl = 0;
 
     private Camera cameraMain;
 
-    private int currentLvl = 0;
-    [SerializeField] private float currentAsteroidSpeed = 2.5f;
     private float cameraZOffset;
 
     public GameObject Winner { get; set; }
+    public GameObject[] Players { get; set; }
     public int AsteroidsToDestroy { get; set; } = 0;
-    public List<GameObject> Players { get; set; }
     public int CurrentLvl { get => currentLvl; private set => currentLvl = value; }
 
     private void Start()
     {
         cameraMain = Camera.main;
         cameraZOffset = cameraMain.transform.position.z + 10;
-        Players = new List<GameObject>(PlayerCount);
-        for (int i = 0; i < PlayerCount; i++)
+        Players = new GameObject[MultiplayerScenePlayerNumber.Number];
+        for (int i = 0; i < MultiplayerScenePlayerNumber.Number; i++)
         {
             StupPlayer(i);
         }
@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour
     {
         var spaceshipGO = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
         spaceshipGO.transform.position += new Vector3(i, 0, cameraZOffset);
-        Players.Add(spaceshipGO);
+        Players[i] = spaceshipGO;
 
         var script = spaceshipGO.GetComponent<SpaceshipMovement>();
         script.Forward = InputSchema.PlayersInputCombinations[i][Actions.Forward];
@@ -113,7 +113,13 @@ public class GameController : MonoBehaviour
 
     internal void RemovePlayer(GameObject gameObject)
     {
-        Players.Remove(gameObject);
+        for (int i = 0; i < MultiplayerScenePlayerNumber.Number; i++)
+        {
+            if (Players[i] == gameObject)
+            {
+                Players[i] = null;
+            }
+        }
         Destroy(gameObject);
     }
 
@@ -160,7 +166,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (Players.Count > 0)
+        if (Players.Length > 0)
         {
             // TODO: Spawn Power up-s
 

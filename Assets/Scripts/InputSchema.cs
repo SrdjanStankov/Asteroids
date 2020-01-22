@@ -31,7 +31,7 @@ public static class InputSchema
                 { Actions.Backwards, KeyCode.K},
                 { Actions.Left, KeyCode.J },
                 { Actions.Right, KeyCode.L },
-                { Actions.Fire, KeyCode.Comma }
+                { Actions.Fire, KeyCode.N }
             } } ,
             { 3, new Dictionary < Actions, KeyCode >()
             {
