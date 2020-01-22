@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CanvasController : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class CanvasController : MonoBehaviour
     public void SingleplayerBtnClick()
     {
         // TODO: load singleplayer scene
+        MultiplayerScenePlayerNumber.Number = 1;
+        SceneManager.LoadScene("SingleplayerScene");
     }
 
     public void MultiplayerBtnClick()
@@ -37,16 +40,22 @@ public class CanvasController : MonoBehaviour
     public void TwoplayerBtnClick()
     {
         // TODO: load multiplayer scene with 2 players
+        MultiplayerScenePlayerNumber.Number = 2;
+        SceneManager.LoadScene("MultiplayerScene");
     }
 
     public void ThreeplayerBtnClick()
     {
         // TODO: load multiplayer scene with 3 players
+        MultiplayerScenePlayerNumber.Number = 3;
+        SceneManager.LoadScene("MultiplayerScene");
     }
 
     public void FourlayerBtnClick()
     {
         // TODO: load multiplayer scene with 4 players
+        MultiplayerScenePlayerNumber.Number = 4;
+        SceneManager.LoadScene("MultiplayerScene");
     }
 
     public void TournamentplayerBtnClick()
