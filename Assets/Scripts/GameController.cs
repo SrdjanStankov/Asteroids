@@ -60,8 +60,6 @@ public class GameController : MonoBehaviour
             default:
                 break;
         }
-
-        FindObjectOfType<SingleplayerCanvasScript>().Spaceship = spaceshipGO.GetComponent<SpaceshipAttribute>();
     }
 
     private void StartLevel()
