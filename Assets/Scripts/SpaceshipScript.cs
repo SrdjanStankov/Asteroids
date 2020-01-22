@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpaceshipScript : MonoBehaviour
 {
@@ -16,7 +15,7 @@ public class SpaceshipScript : MonoBehaviour
     [SerializeField] private Sprite sprite;
     [SerializeField] private GameObject projectile;
 
-    private SpriteRenderer renderer;
+    private SpriteRenderer rendererSprite;
     private Sprite projectileSprite;
 
     private float translation;
@@ -38,8 +37,8 @@ public class SpaceshipScript : MonoBehaviour
 
     private void Start()
     {
-        renderer = GetComponent<SpriteRenderer>();
-        renderer.sprite = Sprite;
+        rendererSprite = GetComponent<SpriteRenderer>();
+        rendererSprite.sprite = Sprite;
         switch (sprite.name.Split(' ')[1])
         {
             case "Blue":
@@ -73,7 +72,7 @@ public class SpaceshipScript : MonoBehaviour
         if (Input.GetKeyDown(Fire))
         {
             var projectileScript = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<ProjectileScript>();
-            var ang = transform.rotation.eulerAngles.z;
+            float ang = transform.rotation.eulerAngles.z;
             projectileScript.Angle = ang;
             projectileScript.Sprite = projectileSprite;
             projectileScript.Spaceship = this;

@@ -1,29 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
     [Range(1, 4)] public int PlayerCount = 1;
+    
     public GameObject PlayerPrefab;
     public GameObject AsteroidPrefab;
-
-    private List<GameObject> players;
-
+    
+    private Camera cameraMain;
+    
     private int currentLvl = 0;
     private int asteroidsToDestroy = 0;
     private float currentAsteroidSpeed = 2.75f;
-    private Camera camera;
     private float cameraZOffset;
 
     public GameObject Winner { get; set; }
     public int AsteroidsToDestroy { get => asteroidsToDestroy; set => asteroidsToDestroy = value; }
-    public List<GameObject> Players { get => players; set => players = value; }
+    public List<GameObject> Players { get; set; }
 
     private void Start()
     {
-        camera = Camera.main;
-        cameraZOffset = camera.transform.position.z + 10;
+        cameraMain = Camera.main;
+        cameraZOffset = cameraMain.transform.position.z + 10;
         Players = new List<GameObject>(PlayerCount);
         for (int i = 0; i < PlayerCount; i++)
         {
@@ -127,13 +126,13 @@ public class GameController : MonoBehaviour
         switch (Side)
         {
             case 1:
-                return camera.ScreenToWorldPoint(new Vector3(-100, UnityEngine.Random.Range(0, Screen.height), cameraZOffset)); // leva strana
+                return cameraMain.ScreenToWorldPoint(new Vector3(-100, UnityEngine.Random.Range(0, Screen.height), cameraZOffset)); // leva strana
             case 2:
-                return camera.ScreenToWorldPoint(new Vector3(UnityEngine.Random.Range(0, Screen.width), -100, cameraZOffset)); // donja strana
+                return cameraMain.ScreenToWorldPoint(new Vector3(UnityEngine.Random.Range(0, Screen.width), -100, cameraZOffset)); // donja strana
             case 3:
-                return camera.ScreenToWorldPoint(new Vector3(Screen.width + 100, UnityEngine.Random.Range(0, Screen.height), cameraZOffset)); // desna strana
+                return cameraMain.ScreenToWorldPoint(new Vector3(Screen.width + 100, UnityEngine.Random.Range(0, Screen.height), cameraZOffset)); // desna strana
             case 4:
-                return camera.ScreenToWorldPoint(new Vector3(UnityEngine.Random.Range(0, Screen.width), Screen.height + 100, cameraZOffset)); // gornja strana
+                return cameraMain.ScreenToWorldPoint(new Vector3(UnityEngine.Random.Range(0, Screen.width), Screen.height + 100, cameraZOffset)); // gornja strana
             default:
                 return Vector3.zero;
         }
@@ -151,7 +150,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        
+
 
         /*
          
