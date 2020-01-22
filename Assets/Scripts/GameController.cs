@@ -4,19 +4,18 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [Range(1, 4)] public int PlayerCount = 1;
-    
+
     public GameObject PlayerPrefab;
     public GameObject AsteroidPrefab;
-    
+
     private Camera cameraMain;
-    
+
     private int currentLvl = 0;
-    private int asteroidsToDestroy = 0;
     private float currentAsteroidSpeed = 2.75f;
     private float cameraZOffset;
 
     public GameObject Winner { get; set; }
-    public int AsteroidsToDestroy { get => asteroidsToDestroy; set => asteroidsToDestroy = value; }
+    public int AsteroidsToDestroy { get; set; } = 0;
     public List<GameObject> Players { get; set; }
 
     private void Start()
@@ -63,7 +62,7 @@ public class GameController : MonoBehaviour
     private void StartLevel()
     {
         currentLvl++;
-        AsteroidsToDestroy = (2 * currentLvl) + 1;
+        int maxAsteroidsToDestroy = (2 * currentLvl) + 1;
         currentAsteroidSpeed += 0.2f;
 
         if (currentLvl % 4 == 0)
@@ -76,7 +75,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < 2 + (2 * currentLvl); i++)
+        for (int i = 0; i < maxAsteroidsToDestroy; i++)
         {
             CreateAsteroid(AsteroidType.Large, GetSpwnPositionAsteroid());
         }
@@ -111,7 +110,7 @@ public class GameController : MonoBehaviour
             default:
                 break;
         }
-        asteroidsToDestroy++;
+        AsteroidsToDestroy++;
     }
 
     internal void RemovePlayer(GameObject gameObject)
@@ -122,17 +121,17 @@ public class GameController : MonoBehaviour
 
     private Vector3 GetSpwnPositionAsteroid()
     {
-        int Side = UnityEngine.Random.Range(1, 5);
+        int Side = Random.Range(1, 5);
         switch (Side)
         {
             case 1:
-                return cameraMain.ScreenToWorldPoint(new Vector3(-100, UnityEngine.Random.Range(0, Screen.height), cameraZOffset)); // leva strana
+                return cameraMain.ScreenToWorldPoint(new Vector3(-100, Random.Range(0, Screen.height), cameraZOffset)); // leva strana
             case 2:
-                return cameraMain.ScreenToWorldPoint(new Vector3(UnityEngine.Random.Range(0, Screen.width), -100, cameraZOffset)); // donja strana
+                return cameraMain.ScreenToWorldPoint(new Vector3(Random.Range(0, Screen.width), -100, cameraZOffset)); // donja strana
             case 3:
-                return cameraMain.ScreenToWorldPoint(new Vector3(Screen.width + 100, UnityEngine.Random.Range(0, Screen.height), cameraZOffset)); // desna strana
+                return cameraMain.ScreenToWorldPoint(new Vector3(Screen.width + 100, Random.Range(0, Screen.height), cameraZOffset)); // desna strana
             case 4:
-                return cameraMain.ScreenToWorldPoint(new Vector3(UnityEngine.Random.Range(0, Screen.width), Screen.height + 100, cameraZOffset)); // gornja strana
+                return cameraMain.ScreenToWorldPoint(new Vector3(Random.Range(0, Screen.width), Screen.height + 100, cameraZOffset)); // gornja strana
             default:
                 return Vector3.zero;
         }
@@ -140,6 +139,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        print(AsteroidsToDestroy);
         if (Players.Count > 0)
         {
             // TODO: Spawn Power up-s
