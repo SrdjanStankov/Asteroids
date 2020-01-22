@@ -272,6 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lives: 3
+  playerName: Default
 --- !u!114 &1664856859687220597
 MonoBehaviour:
   m_ObjectHideFlags: 0

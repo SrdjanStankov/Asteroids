@@ -4,7 +4,7 @@ public class AsteroidCollision : MonoBehaviour
 {
     private GameController gameController;
 
-    void Start()
+    private void Start()
     {
         gameController = FindObjectOfType<GameController>();
     }

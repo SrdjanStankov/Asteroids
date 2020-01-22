@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     public GameObject Winner { get; set; }
     public int AsteroidsToDestroy { get; set; } = 0;
     public List<GameObject> Players { get; set; }
+    public int CurrentLvl { get => currentLvl; private set => currentLvl = value; }
 
     private void Start()
     {
@@ -34,7 +35,7 @@ public class GameController : MonoBehaviour
         var spaceshipGO = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
         spaceshipGO.transform.position += new Vector3(i, 0, cameraZOffset);
         Players.Add(spaceshipGO);
-        
+
         var script = spaceshipGO.GetComponent<SpaceshipMovement>();
         script.Forward = InputSchema.PlayersInputCombinations[i][Actions.Forward];
         script.Backwards = InputSchema.PlayersInputCombinations[i][Actions.Backwards];
@@ -59,15 +60,17 @@ public class GameController : MonoBehaviour
             default:
                 break;
         }
+
+        FindObjectOfType<SingleplayerCanvasScript>().spaceship = spaceshipGO.GetComponent<SpaceshipAttribute>();
     }
 
     private void StartLevel()
     {
-        currentLvl++;
-        int maxAsteroidsToDestroy = (2 * currentLvl) + 1;
+        CurrentLvl++;
+        int maxAsteroidsToDestroy = (2 * CurrentLvl) + 1;
         currentAsteroidSpeed += 0.2f;
 
-        if (currentLvl % 4 == 0)
+        if (CurrentLvl % 4 == 0)
         {
             foreach (var item in Players)
             {
