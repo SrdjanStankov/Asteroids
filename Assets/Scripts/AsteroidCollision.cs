@@ -13,7 +13,7 @@ public class AsteroidCollision : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var asteroidsStats = GetComponent<AsteroidsStats>();
-        collision.gameObject.GetComponent<ProjectileScript>().Spaceship.AddPoints(asteroidsStats.PointsWorth);
+        collision.gameObject.GetComponent<ProjectileAttributes>().Spaceship.AddPoints(asteroidsStats.PointsWorth);
         gameController.DestroyAsteroid(asteroidsStats);
         Destroy(collision.gameObject);
     }

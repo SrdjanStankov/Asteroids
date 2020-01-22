@@ -71,12 +71,16 @@ public class SpaceshipScript : MonoBehaviour
 
         if (Input.GetKeyDown(Fire))
         {
-            var projectileScript = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<ProjectileScript>();
-            float ang = transform.rotation.eulerAngles.z;
-            projectileScript.Angle = ang;
-            projectileScript.Sprite = projectileSprite;
-            projectileScript.Spaceship = this;
+            CreateProjectile();
         }
+    }
+
+    private void CreateProjectile()
+    {
+        var projectile = Instantiate(this.projectile, transform.position, Quaternion.identity);
+        projectile.GetComponent<StraightLineMovement>().Angle = transform.rotation.eulerAngles.z;
+        projectile.GetComponent<SpriteRenderer>().sprite = projectileSprite;
+        projectile.GetComponent<ProjectileAttributes>().Spaceship = this;
     }
 
     public void AddPoints(float amount)

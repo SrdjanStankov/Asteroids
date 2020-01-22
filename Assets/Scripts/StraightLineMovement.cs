@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class AsteroidMovement : MonoBehaviour
+public class StraightLineMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float angle;

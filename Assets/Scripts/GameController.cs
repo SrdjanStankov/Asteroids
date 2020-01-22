@@ -84,7 +84,7 @@ public class GameController : MonoBehaviour
     internal void CreateAsteroid(AsteroidType type, Vector3 position)
     {
         var asteroidObj = Instantiate(AsteroidPrefab, position, Quaternion.identity);
-        var asteroid = asteroidObj.GetComponent<AsteroidMovement>();
+        var asteroid = asteroidObj.GetComponent<StraightLineMovement>();
         asteroid.Angle = Random.Range(0, 360);
         asteroid.Speed = currentAsteroidSpeed;
         asteroidObj.GetComponent<AsteroidsStats>().Type = type;
