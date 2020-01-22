@@ -2,5 +2,5 @@
 
 public class ProjectileAttributes : MonoBehaviour
 {
-    public SpaceshipScript Spaceship { get; set; }
+    public SpaceshipAttribute Spaceship { get; set; }
 }

@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1483223962363689804}
   - component: {fileID: 1483223962363689807}
-  - component: {fileID: 1483223962363689806}
   - component: {fileID: 1483223962363689801}
+  - component: {fileID: 1483223962363689806}
+  - component: {fileID: 1664856859687220597}
+  - component: {fileID: 3040114197177780189}
   m_Layer: 8
   m_Name: Spaceship
   m_TagString: Player
@@ -83,29 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1483223962363689806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1483223962363689800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba93334ee30530344803a2ecd757d862, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lives: 3
-  flightSpeed: 2.3
-  rotationSpeed: 130
-  forward: 0
-  backwards: 0
-  left: 0
-  right: 0
-  fire: 0
-  sprite: {fileID: 21300000, guid: fcaac0cffe37a6342941b8e5fa5dbcfe, type: 3}
-  projectile: {fileID: 6353985643849006342, guid: e1967c28ddbcac94f9528181a10e72ec,
-    type: 3}
 --- !u!60 &1483223962363689801
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -280,3 +259,49 @@ PolygonCollider2D:
       - {x: 1.03, y: -0.35}
       - {x: 0.7, y: -0.47}
       - {x: 0.66999996, y: -0.48999998}
+--- !u!114 &1483223962363689806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483223962363689800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0561a1698543715488e1b3c9d329d553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lives: 3
+--- !u!114 &1664856859687220597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483223962363689800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33a4dd5f3fb14a84784aefcdf0e401b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flightSpeed: 2.3
+  rotationSpeed: 130
+  forward: 0
+  backwards: 0
+  left: 0
+  right: 0
+--- !u!114 &3040114197177780189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483223962363689800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1da6146f3e3bff478a86136c67bb7d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fire: 0
+  projectile: {fileID: 6353985643849006342, guid: e1967c28ddbcac94f9528181a10e72ec,
+    type: 3}

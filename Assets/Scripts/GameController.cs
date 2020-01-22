@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
     private Camera cameraMain;
 
     private int currentLvl = 0;
-    private float currentAsteroidSpeed = 2.75f;
+    [SerializeField] private float currentAsteroidSpeed = 2.5f;
     private float cameraZOffset;
 
     public GameObject Winner { get; set; }
@@ -31,28 +31,30 @@ public class GameController : MonoBehaviour
 
     private void StupPlayer(int i)
     {
-        var gameObject = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
-        gameObject.transform.position += new Vector3(i, 0, cameraZOffset);
-        Players.Add(gameObject);
-        var script = gameObject.GetComponent<SpaceshipScript>();
+        var spaceshipGO = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
+        spaceshipGO.transform.position += new Vector3(i, 0, cameraZOffset);
+        Players.Add(spaceshipGO);
+        
+        var script = spaceshipGO.GetComponent<SpaceshipMovement>();
         script.Forward = InputSchema.PlayersInputCombinations[i][Actions.Forward];
         script.Backwards = InputSchema.PlayersInputCombinations[i][Actions.Backwards];
         script.Left = InputSchema.PlayersInputCombinations[i][Actions.Left];
         script.Right = InputSchema.PlayersInputCombinations[i][Actions.Right];
-        script.Fire = InputSchema.PlayersInputCombinations[i][Actions.Fire];
+        spaceshipGO.GetComponent<SpaceshipFiring>().Fire = InputSchema.PlayersInputCombinations[i][Actions.Fire];
+
         switch (i)
         {
             case 0:
-                script.Sprite = Resources.Load<Sprite>("Spaceship Blue");
+                spaceshipGO.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spaceship Blue");
                 break;
             case 1:
-                script.Sprite = Resources.Load<Sprite>("Spaceship Green");
+                spaceshipGO.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spaceship Green");
                 break;
             case 2:
-                script.Sprite = Resources.Load<Sprite>("Spaceship Red");
+                spaceshipGO.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spaceship Red");
                 break;
             case 3:
-                script.Sprite = Resources.Load<Sprite>("Spaceship Purple");
+                spaceshipGO.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spaceship Purple");
                 break;
             default:
                 break;
@@ -69,9 +71,10 @@ public class GameController : MonoBehaviour
         {
             foreach (var item in Players)
             {
-                var spaceship = item.GetComponent<SpaceshipScript>();
-                spaceship.FlightSpeed += 0.2f;
-                spaceship.Points += 1000;
+                var spaceshipMovement = item.GetComponent<SpaceshipMovement>();
+                spaceshipMovement.FlightSpeed += 0.2f;
+                spaceshipMovement.RotationSpeed += 20f;
+                item.GetComponent<SpaceshipAttribute>().AddPoints(1000);
             }
         }
 

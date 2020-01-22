@@ -21,6 +21,6 @@ public class AsteroidCollision : MonoBehaviour
     // collision asteroid with spaceship
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.gameObject.GetComponent<SpaceshipScript>().RemoveLife(1);
+        collision.gameObject.GetComponent<SpaceshipAttribute>().RemoveLife(1);
     }
 }

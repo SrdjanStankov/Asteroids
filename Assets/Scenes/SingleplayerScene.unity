@@ -155,6 +155,7 @@ MonoBehaviour:
     type: 3}
   AsteroidPrefab: {fileID: 4886107700194649065, guid: b4f0ad543e4d7694e98bd51b0b702be7,
     type: 3}
+  currentAsteroidSpeed: 2.5
 --- !u!4 &599995355
 Transform:
   m_ObjectHideFlags: 0
