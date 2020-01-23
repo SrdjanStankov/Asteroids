@@ -13,7 +13,6 @@ public class MultiplayerCanvasScript : MonoBehaviour
     void Start()
     {
         controller = FindObjectOfType<GameController>();
-        MultiplayerScenePlayerNumber.Number = 4;
         playerTexts = new RectTransform[MultiplayerScenePlayerNumber.Number];
         for (int i = 0; i < MultiplayerScenePlayerNumber.Number; i++)
         {

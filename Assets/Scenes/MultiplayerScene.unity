@@ -522,6 +522,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerTextsPrefab: {fileID: 7908238080250947594, guid: ca7a9a53d4edcef4aa56071dfdebb0bb,
     type: 3}
+  LevelText: {fileID: 638570046}
+  RemainingAsteroidsText: {fileID: 1861512348}
 --- !u!1 &1861512346
 GameObject:
   m_ObjectHideFlags: 0
