@@ -46,16 +46,16 @@ public class GameController : MonoBehaviour
         switch (i)
         {
             case 0:
-                spaceshipGO.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spaceship Blue");
+                spaceshipGO.GetComponent<SpaceshipAttribute>().Color = Color.blue;
                 break;
             case 1:
-                spaceshipGO.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spaceship Green");
+                spaceshipGO.GetComponent<SpaceshipAttribute>().Color = Color.green;
                 break;
             case 2:
-                spaceshipGO.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spaceship Red");
+                spaceshipGO.GetComponent<SpaceshipAttribute>().Color = Color.red;
                 break;
             case 3:
-                spaceshipGO.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Spaceship Purple");
+                spaceshipGO.GetComponent<SpaceshipAttribute>().Color = Color.magenta;
                 break;
             default:
                 break;

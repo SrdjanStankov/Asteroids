@@ -11,19 +11,19 @@ public class SpaceshipFiring : MonoBehaviour
 
     private void Start()
     {
-        switch (GetComponent<SpriteRenderer>().sprite.name.Split(' ')[1])
+        switch (GetComponent<SpaceshipAttribute>().Color.ToString())
         {
-            case "Blue":
+            case "RGBA(0.000, 0.000, 1.000, 1.000)":
                 projectileSprite = Resources.Load<Sprite>("Laser Blue");
                 break;
-            case "Green":
+            case "RGBA(0.000, 1.000, 0.000, 1.000)":
                 projectileSprite = Resources.Load<Sprite>("Laser Green");
                 break;
-            case "Purple":
-                projectileSprite = Resources.Load<Sprite>("Laser Purple");
-                break;
-            case "Red":
+            case "RGBA(1.000, 0.000, 0.000, 1.000)":
                 projectileSprite = Resources.Load<Sprite>("Laser Red");
+                break;
+            case "RGBA(1.000, 0.000, 1.000, 1.000)":
+                projectileSprite = Resources.Load<Sprite>("Laser Purple");
                 break;
             default:
                 break;
