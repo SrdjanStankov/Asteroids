@@ -520,6 +520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5403a385e66f12249b9a7c8b7e61faad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceBetweenWords: 10
   PlayerTextsPrefab: {fileID: 7908238080250947594, guid: ca7a9a53d4edcef4aa56071dfdebb0bb,
     type: 3}
   LevelText: {fileID: 638570046}
