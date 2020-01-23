@@ -32,12 +32,15 @@ public class MultiplayerCanvasScript : MonoBehaviour
 
             var playerNameTextObj = playerTexts[i].GetChild(0);
             playerNameTexts[i] = playerNameTextObj.GetComponent<TMP_Text>();
+            playerNameTexts[i].color = controller.Players[i].GetComponent<SpaceshipAttribute>().Color;
 
             var playerScoreTextObj = playerNameTextObj.GetChild(0);
             playerScoreTexts[i] = playerScoreTextObj.GetComponent<TMP_Text>();
+            playerScoreTexts[i].color = controller.Players[i].GetComponent<SpaceshipAttribute>().Color;
 
             var playerLifeTextObj = playerScoreTextObj.GetChild(0);
             playerLifeTexts[i] = playerLifeTextObj.GetComponent<TMP_Text>();
+            playerLifeTexts[i].color = controller.Players[i].GetComponent<SpaceshipAttribute>().Color;
         }
     }
 

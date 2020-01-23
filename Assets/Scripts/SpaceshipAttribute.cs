@@ -15,7 +15,6 @@ public class SpaceshipAttribute : MonoBehaviour
         set
         {
             color = value;
-            print("color: " + color.ToString() + "|");
             switch (color.ToString())
             {
                 case "RGBA(0.000, 0.000, 1.000, 1.000)":
