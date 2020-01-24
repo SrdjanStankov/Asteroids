@@ -22,7 +22,7 @@ public abstract class Pickupable : MonoBehaviour
 
 		if (timeOfCollection + Duration <= Time.time)
 		{
-			Destroy(gameObject);
+			OnEndOfDuration();
 		}
 	}
 
@@ -36,4 +36,5 @@ public abstract class Pickupable : MonoBehaviour
 	}
 
 	protected abstract void OnPickup(Collider2D collision);
+	protected abstract void OnEndOfDuration();
 }

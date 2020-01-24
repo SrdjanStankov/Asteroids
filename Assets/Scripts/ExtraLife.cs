@@ -6,4 +6,9 @@ public class ExtraLife : Pickupable
     {
         collision.gameObject.GetComponent<SpaceshipAttribute>().Lives++;
     }
+
+    protected override void OnEndOfDuration()
+    {
+        Destroy(gameObject);
+    }
 }
