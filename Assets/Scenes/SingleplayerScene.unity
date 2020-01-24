@@ -150,7 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f09ffa472fa0414e94c72c2e25fde57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerCount: 1
   PlayerPrefab: {fileID: 1483223962363689800, guid: 65462f113b453d34889c42fd9e1f0492,
     type: 3}
   AsteroidPrefab: {fileID: 4886107700194649065, guid: b4f0ad543e4d7694e98bd51b0b702be7,

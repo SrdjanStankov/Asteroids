@@ -32,8 +32,8 @@ public abstract class Pickupable : MonoBehaviour
 		Collected = true;
 		gameObject.GetComponent<SpriteRenderer>().enabled = false;
 		gameObject.GetComponent<Collider2D>().enabled = false;
-		OnPickup();
+		OnPickup(collision);
 	}
 
-	protected abstract void OnPickup();
+	protected abstract void OnPickup(Collider2D collision);
 }

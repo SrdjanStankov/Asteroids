@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6353985643849006337}
   - component: {fileID: 5098648842951218806}
   - component: {fileID: 3272219055803543854}
+  - component: {fileID: 5031977028302312241}
   m_Layer: 10
   m_Name: Projectile
   m_TagString: Projectile
@@ -97,8 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d5acca5779d2d41b835ea0e587a025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  angle: 0
 --- !u!70 &6353985643849006337
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -141,3 +140,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   angle: 0
+--- !u!50 &5031977028302312241
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6353985643849006342}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
