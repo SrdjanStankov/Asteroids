@@ -2,7 +2,7 @@
 
 public class SpeedUp : Pickupable
 {
-    private SpaceshipMovement spaceshipMovement;
+    private SpaceshipAttribute spaceshipMovement;
 
     protected override void OnEndOfDuration()
     {
@@ -17,7 +17,7 @@ public class SpeedUp : Pickupable
 
     protected override void OnPickup(Collider2D collision)
     {
-        spaceshipMovement = collision.GetComponent<SpaceshipMovement>();
+        spaceshipMovement = collision.GetComponent<SpaceshipAttribute>();
         spaceshipMovement.FlightSpeed *= 2;
         spaceshipMovement.RotationSpeed *= 2;
     }

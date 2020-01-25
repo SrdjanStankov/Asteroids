@@ -83,7 +83,7 @@ public class GameController : MonoBehaviour
         {
             foreach (var item in Players)
             {
-                var spaceshipMovement = item.GetComponent<SpaceshipMovement>();
+                var spaceshipMovement = item.GetComponent<SpaceshipAttribute>();
                 spaceshipMovement.FlightSpeed += 0.2f;
                 spaceshipMovement.RotationSpeed += 20f;
                 item.GetComponent<SpaceshipAttribute>().AddPoints(1000);

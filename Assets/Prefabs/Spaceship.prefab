@@ -274,6 +274,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lives: 3
   playerName: Default
+  flightSpeed: 2.3
+  rotationSpeed: 130
 --- !u!114 &1664856859687220597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,8 +288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a4dd5f3fb14a84784aefcdf0e401b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flightSpeed: 2.3
-  rotationSpeed: 130
   forward: 0
   backwards: 0
   left: 0
