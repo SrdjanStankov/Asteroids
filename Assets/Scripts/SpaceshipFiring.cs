@@ -40,7 +40,7 @@ public class SpaceshipFiring : MonoBehaviour
         if (Input.GetKey(Fire) && Time.time > nextShootTime)
         {
             CreateProjectile();
-            nextShootTime += attribute.FireRate;
+            nextShootTime += attribute.FireRate + Time.time;
         }
     }
 
