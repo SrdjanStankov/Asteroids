@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameController : MonoBehaviour
 {
@@ -13,13 +15,14 @@ public class GameController : MonoBehaviour
     private int currentLvl = 0;
 
     private Camera cameraMain;
+    private List<(string, float)> destroyedShips = new List<(string, float)>();
+    private (string, float) winner;
 
     private float cameraZOffset;
     private float nextPowerUpTime = 0;
 
-    public GameObject Winner { get; set; }
     public GameObject[] Players { get; set; }
-    public float SpawnPowerUpInterval { get { return spawnPowerUpInterval; } set { spawnPowerUpInterval = value; } }
+    public float SpawnPowerUpInterval { get => spawnPowerUpInterval; set => spawnPowerUpInterval = value; }
     public int AsteroidsToDestroy { get; set; } = 0;
     public int CurrentLvl { get => currentLvl; private set => currentLvl = value; }
 
@@ -129,6 +132,8 @@ public class GameController : MonoBehaviour
             if (Players[i] == gameObject)
             {
                 Players[i] = null;
+                var attribute = gameObject.GetComponent<SpaceshipAttribute>();
+                destroyedShips.Add((attribute.PlayerName, attribute.Score));
             }
         }
         Destroy(gameObject);
@@ -177,20 +182,15 @@ public class GameController : MonoBehaviour
 
     private void SpawnPowerUp()
     {
-        // choose powerup
         var powerUp = powerUps[Random.Range(0, powerUps.Count)];
-        // choose location on screen
         var spawnLocation = cameraMain.ScreenToWorldPoint(new Vector3(Random.Range(25, Screen.width - 25), Random.Range(25, Screen.height - 25), cameraZOffset));
-        // spawn powerup
         Instantiate(powerUp, spawnLocation, Quaternion.identity);
     }
 
     private void Update()
     {
-        if (Players.Length > 0)
+        if (ArePlayersAlive())
         {
-            // TODO: Spawn Power up-s
-
             if (nextPowerUpTime <= Time.time)
             {
                 SpawnPowerUp();
@@ -202,17 +202,20 @@ public class GameController : MonoBehaviour
                 StartLevel();
             }
         }
+        else
+        {
+            if (string.IsNullOrEmpty(winner.Item1))
+            {
+                winner = destroyedShips.OrderByDescending(x => x.Item2).FirstOrDefault();
+                Debug.Log(winner);
+                // show winning screen with winner and score
+            }
+        }
 
 
 
         /*
          
-        if len(mng.Managers.getInstance().objects.FindObjectsOfType("Spaceship")) > 0:
-            self.nextPowerUp = (self.nextPowerUp + 4) % 40
-            if(self.nextPowerUp == 0):
-                self.spawnPowerUp()
-            if self.asteroidsToDestroy <= 0:
-                self.startLevel()
         else:
             if self.winner is None:
                 self.winner = max(self.scores, key = lambda x: x[2])
@@ -230,5 +233,17 @@ public class GameController : MonoBehaviour
                     mng.Managers.getInstance().input.stopListening()
          
          */
+    }
+
+    private bool ArePlayersAlive()
+    {
+        for (int i = 0; i < Players.Length; i++)
+        {
+            if (Players[i] != null)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
