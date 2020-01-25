@@ -21,6 +21,10 @@ public class SingleplayerCanvasScript : MonoBehaviour
 
     private void Update()
     {
+        if (spaceship is null)
+        {
+            return;
+        }
         ScoreText.text = $"Score: {spaceship.Score}";
         livesLeftText.text = $"Lives: {spaceship.Lives}";
         playerName.text = $"Player: {spaceship.PlayerName}";
