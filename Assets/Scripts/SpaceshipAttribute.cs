@@ -51,6 +51,7 @@ public class SpaceshipAttribute : MonoBehaviour
     public void RemoveLife(int amount)
     {
         Lives -= amount;
+        transform.position = new Vector3(0, 0, 10);
         if (Lives <= 0)
         {
             Die();

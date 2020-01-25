@@ -155,7 +155,7 @@ MonoBehaviour:
   AsteroidPrefab: {fileID: 4886107700194649065, guid: b4f0ad543e4d7694e98bd51b0b702be7,
     type: 3}
   currentAsteroidSpeed: 2.5
-  spawnPowerUpInterval: 1
+  spawnPowerUpInterval: 40
   powerUps:
   - {fileID: 7498923240443242883, guid: 2a841a6ba18380f4a865adc964149d7f, type: 3}
   - {fileID: 2239680840511626514, guid: 503f63ad5b769694992c4edeee626388, type: 3}
