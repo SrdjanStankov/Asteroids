@@ -5,22 +5,30 @@ public class GameController : MonoBehaviour
 {
     public GameObject PlayerPrefab;
     public GameObject AsteroidPrefab;
-    
+
     [SerializeField] private float currentAsteroidSpeed = 2.5f;
+    [SerializeField] private float spawnPowerUpInterval = 30;
+    [SerializeField] private List<GameObject> powerUps = new List<GameObject>();
 
     private int currentLvl = 0;
 
     private Camera cameraMain;
 
     private float cameraZOffset;
+    private float nextPowerUpTime = 0;
 
     public GameObject Winner { get; set; }
     public GameObject[] Players { get; set; }
+    public float SpawnPowerUpInterval { get { return spawnPowerUpInterval; } set { spawnPowerUpInterval = value; } }
     public int AsteroidsToDestroy { get; set; } = 0;
     public int CurrentLvl { get => currentLvl; private set => currentLvl = value; }
 
     private void Start()
     {
+        if (MultiplayerScenePlayerNumber.Number == 0)
+        {
+            MultiplayerScenePlayerNumber.Number = 1;
+        }
         cameraMain = Camera.main;
         cameraZOffset = cameraMain.transform.position.z + 10;
         Players = new GameObject[MultiplayerScenePlayerNumber.Number];
@@ -32,6 +40,7 @@ public class GameController : MonoBehaviour
 
     private void StupPlayer(int i)
     {
+        nextPowerUpTime = Time.time + SpawnPowerUpInterval;
         var spaceshipGO = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
         spaceshipGO.transform.position += new Vector3(i, 0, cameraZOffset);
         Players[i] = spaceshipGO;
@@ -67,6 +76,8 @@ public class GameController : MonoBehaviour
         CurrentLvl++;
         int maxAsteroidsToDestroy = (2 * CurrentLvl) + 1;
         currentAsteroidSpeed += 0.2f;
+
+        nextPowerUpTime = Time.time + SpawnPowerUpInterval;
 
         if (CurrentLvl % 4 == 0)
         {
@@ -164,11 +175,27 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private void SpawnPowerUp()
+    {
+        // choose powerup
+        var powerUp = powerUps[Random.Range(0, powerUps.Count)];
+        // choose location on screen
+        var spawnLocation = cameraMain.ScreenToWorldPoint(new Vector3(Random.Range(25, Screen.width - 25), Random.Range(25, Screen.height - 25), cameraZOffset));
+        // spawn powerup
+        Instantiate(powerUp, spawnLocation, Quaternion.identity);
+    }
+
     private void Update()
     {
         if (Players.Length > 0)
         {
             // TODO: Spawn Power up-s
+
+            if (nextPowerUpTime <= Time.time)
+            {
+                SpawnPowerUp();
+                nextPowerUpTime += SpawnPowerUpInterval;
+            }
 
             if (AsteroidsToDestroy <= 0)
             {
