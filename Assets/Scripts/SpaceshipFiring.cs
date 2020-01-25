@@ -6,12 +6,16 @@ public class SpaceshipFiring : MonoBehaviour
     [SerializeField] private GameObject projectile;
 
     private Sprite projectileSprite;
+    private SpaceshipAttribute attribute;
+
+    private float nextShootTime;
 
     public KeyCode Fire { get => fire; set => fire = value; }
 
     private void Start()
     {
-        switch (GetComponent<SpaceshipAttribute>().Color.ToString())
+        attribute = GetComponent<SpaceshipAttribute>();
+        switch (attribute.Color.ToString())
         {
             case "RGBA(0.000, 0.000, 1.000, 1.000)":
                 projectileSprite = Resources.Load<Sprite>("Laser Blue");
@@ -28,13 +32,15 @@ public class SpaceshipFiring : MonoBehaviour
             default:
                 break;
         }
+        nextShootTime = Time.time + attribute.FireRate;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(Fire))
+        if (Input.GetKey(Fire) && Time.time > nextShootTime)
         {
             CreateProjectile();
+            nextShootTime += attribute.FireRate;
         }
     }
 

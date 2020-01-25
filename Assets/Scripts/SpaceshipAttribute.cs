@@ -6,13 +6,17 @@ public class SpaceshipAttribute : MonoBehaviour
     [SerializeField] private string playerName;
     [SerializeField] private float flightSpeed;
     [SerializeField] private float rotationSpeed;
+    [SerializeField] private float fireRate;
     private Color color;
+
+
 
     public float Score { get; private set; }
     public int Lives { get => lives; set => lives = value; }
     public string PlayerName { get => playerName; set => playerName = value; }
     public float FlightSpeed { get => flightSpeed; set => flightSpeed = value; }
     public float RotationSpeed { get => rotationSpeed; set => rotationSpeed = value; }
+    public float FireRate { get => fireRate; set => fireRate = value; }
     public Color Color
     {
         get => color;

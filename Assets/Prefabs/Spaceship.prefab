@@ -276,6 +276,7 @@ MonoBehaviour:
   playerName: Default
   flightSpeed: 2.3
   rotationSpeed: 130
+  fireRate: 0.5
 --- !u!114 &1664856859687220597
 MonoBehaviour:
   m_ObjectHideFlags: 0
