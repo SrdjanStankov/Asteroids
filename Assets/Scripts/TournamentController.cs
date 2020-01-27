@@ -6,11 +6,13 @@ public class TournamentController : MonoBehaviour
     public GameObject PlayerPrefab;
     public GameObject AsteroidPrefab;
     public GameObject GameControllerObj;
+    public GameObject MultiplayerCanvas;
     [SerializeField] private List<string> playerNames = new List<string>();
 
     private List<(string, string)> brackets = new List<(string, string)>();
     private List<string> bracketsWinners = new List<string>();
     private GameController gameController;
+    private GameObject multiplayerCanvasObj;
 
     // Start is called before the first frame update
     private void Start()
@@ -42,6 +44,7 @@ public class TournamentController : MonoBehaviour
         print($"bracket winner is {winnerName}");
         bracketsWinners.Add(winnerName.Item1);
         DestroyImmediate(gameController);
+        DestroyImmediate(multiplayerCanvasObj);
         brackets.RemoveAt(0);
 
         foreach (var item in GameObject.FindGameObjectsWithTag("Asteroid"))
@@ -86,6 +89,8 @@ public class TournamentController : MonoBehaviour
                 gameController = GameControllerObj.AddComponent<GameController>();
                 gameController.AsteroidPrefab = AsteroidPrefab;
                 gameController.PlayerPrefab = PlayerPrefab;
+                multiplayerCanvasObj = Instantiate(MultiplayerCanvas);
+                multiplayerCanvasObj.SetActive(true);
             }
         }
 
