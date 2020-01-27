@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
     public float SpawnPowerUpInterval { get => spawnPowerUpInterval; set => spawnPowerUpInterval = value; }
     public int AsteroidsToDestroy { get; set; } = 0;
     public int CurrentLvl { get => currentLvl; private set => currentLvl = value; }
+    public (string, float) Winner { get => winner; set => winner = value; }
 
     private void Start()
     {
