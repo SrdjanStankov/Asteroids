@@ -39,7 +39,7 @@ public static class InputSchema
                 { Actions.Backwards, KeyCode.Keypad5 },
                 { Actions.Left, KeyCode.Keypad4 },
                 { Actions.Right, KeyCode.Keypad6 },
-                { Actions.Fire, KeyCode.KeypadPeriod }
+                { Actions.Fire, KeyCode.Keypad0 }
             } }
         };
     }
