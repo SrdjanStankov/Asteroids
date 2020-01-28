@@ -1,31 +1,35 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CanvasController : MonoBehaviour
 {
     public Canvas MainMenuCanvas;
     public Canvas MultiplayerCanvas;
     public Canvas TournamentCanvas;
+    public Canvas TwoPlayerCanvas;
+    public Canvas ThreePlayerCanvas;
+    public Canvas FourPlayerCanvas;
 
     private void Start()
     {
+        DisableAllCanvases();
         MainMenuCanvas.gameObject.SetActive(true);
-        MultiplayerCanvas.gameObject.SetActive(false);
-        TournamentCanvas.gameObject.SetActive(false);
     }
 
     public void SingleplayerBtnClick()
     {
         // TODO: load singleplayer scene
-        MultiplayerScenePlayerNumber.Number = 1;
+        MultiplayerScenePlayers.PlayerNumber = 1;
         SceneManager.LoadScene("SingleplayerScene");
     }
 
     public void MultiplayerBtnClick()
     {
+        DisableAllCanvases();
         MultiplayerCanvas.gameObject.SetActive(true);
-        MainMenuCanvas.gameObject.SetActive(false);
-        TournamentCanvas.gameObject.SetActive(false);
     }
 
     public void ExitBtnClick()
@@ -40,48 +44,117 @@ public class CanvasController : MonoBehaviour
     public void TwoplayerBtnClick()
     {
         // TODO: load multiplayer scene with 2 players
-        MultiplayerScenePlayerNumber.Number = 2;
-        SceneManager.LoadScene("MultiplayerScene");
+        MultiplayerScenePlayers.PlayerNumber = 2;
+        DisableAllCanvases();
+        TwoPlayerCanvas.gameObject.SetActive(true);
+        //SceneManager.LoadScene("MultiplayerScene");
     }
 
     public void ThreeplayerBtnClick()
     {
         // TODO: load multiplayer scene with 3 players
-        MultiplayerScenePlayerNumber.Number = 3;
-        SceneManager.LoadScene("MultiplayerScene");
+        MultiplayerScenePlayers.PlayerNumber = 3;
+        DisableAllCanvases();
+        ThreePlayerCanvas.gameObject.SetActive(true);
+        //SceneManager.LoadScene("MultiplayerScene");
     }
 
-    public void FourlayerBtnClick()
+    public void FourPlayerBtnClick()
     {
         // TODO: load multiplayer scene with 4 players
-        MultiplayerScenePlayerNumber.Number = 4;
-        SceneManager.LoadScene("MultiplayerScene");
+        MultiplayerScenePlayers.PlayerNumber = 4;
+        DisableAllCanvases();
+        FourPlayerCanvas.gameObject.SetActive(true);
+        //SceneManager.LoadScene("MultiplayerScene");
     }
 
     public void TournamentplayerBtnClick()
     {
         // TODO: load tournament scene
+        DisableAllCanvases();
         TournamentCanvas.gameObject.SetActive(true);
-        MainMenuCanvas.gameObject.SetActive(false);
-        MultiplayerCanvas.gameObject.SetActive(false);
     }
 
     public void BackToMainMenu()
     {
+        DisableAllCanvases();
         MainMenuCanvas.gameObject.SetActive(true);
-        MultiplayerCanvas.gameObject.SetActive(false);
-        TournamentCanvas.gameObject.SetActive(false);
     }
 
     public void BackToMultiplayerCanvas()
     {
+        DisableAllCanvases();
         MultiplayerCanvas.gameObject.SetActive(true);
-        MainMenuCanvas.gameObject.SetActive(false);
-        TournamentCanvas.gameObject.SetActive(false);
+    }
+
+    public void StartButtonTournamentClick()
+    {
+        // TODO: collect player names and put them inside static class
+
+        SceneManager.LoadScene("TournamentScene");
+    }
+    public void StartButton2PlayerClick()
+    {
+        if (IsInputFieldFromCanvasValid(TwoPlayerCanvas, 2))
+        {
+            SceneManager.LoadScene("multiplayerscene");
+        }
+    }
+
+    public void StartButton3PlayerClick()
+    {
+        if (IsInputFieldFromCanvasValid(ThreePlayerCanvas, 3))
+        {
+            SceneManager.LoadScene("MultiplayerScene"); 
+        }
+    }
+
+    public void StartButton4PlayerClick()
+    {
+        if (IsInputFieldFromCanvasValid(FourPlayerCanvas, 4))
+        {
+            SceneManager.LoadScene("MultiplayerScene");
+        }
     }
 
     public void OnTournamentPlayerCountChanged(int optionId)
     {
         Debug.Log(optionId);
+    }
+
+    private bool IsInputFieldFromCanvasValid(Canvas canvas, int count)
+    {
+        var retVal = new List<TMP_InputField>(count);
+        var valid = true;
+        for (int i = 0; i < count; i++)
+        {
+            retVal.Add(canvas.transform.GetChild(i).GetChild(1).GetComponent<TMP_InputField>());
+            MultiplayerScenePlayers.PlayerNames[i] = retVal[i].text;
+        }
+
+        foreach (var item in retVal)
+        {
+            if (string.IsNullOrEmpty(item.text) || string.IsNullOrWhiteSpace(item.text))
+            {
+                item.GetComponent<Image>().color = Color.red;
+                valid = false;
+            }
+            else
+            {
+                item.GetComponent<Image>().color = Color.white;
+            }
+        }
+
+        return valid;
+    }
+
+    private void DisableAllCanvases()
+    {
+        FourPlayerCanvas.gameObject.SetActive(false);
+        MainMenuCanvas.gameObject.SetActive(false);
+        MultiplayerCanvas.gameObject.SetActive(false);
+        ThreePlayerCanvas.gameObject.SetActive(false);
+        TournamentCanvas.gameObject.SetActive(false);
+        TwoPlayerCanvas.gameObject.SetActive(false);
     }
 }

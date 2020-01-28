@@ -29,14 +29,14 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        if (MultiplayerScenePlayerNumber.Number == 0)
+        if (MultiplayerScenePlayers.PlayerNumber == 0)
         {
-            MultiplayerScenePlayerNumber.Number = 1;
+            MultiplayerScenePlayers.PlayerNumber = 1;
         }
         cameraMain = Camera.main;
         cameraZOffset = cameraMain.transform.position.z + 10;
-        Players = new GameObject[MultiplayerScenePlayerNumber.Number];
-        for (int i = 0; i < MultiplayerScenePlayerNumber.Number; i++)
+        Players = new GameObject[MultiplayerScenePlayers.PlayerNumber];
+        for (int i = 0; i < MultiplayerScenePlayers.PlayerNumber; i++)
         {
             StupPlayer(i);
         }
@@ -56,23 +56,26 @@ public class GameController : MonoBehaviour
         script.Right = InputSchema.PlayersInputCombinations[i][Actions.Right];
         spaceshipGO.GetComponent<SpaceshipFiring>().Fire = InputSchema.PlayersInputCombinations[i][Actions.Fire];
 
+        var Attribute = spaceshipGO.GetComponent<SpaceshipAttribute>();
         switch (i)
         {
             case 0:
-                spaceshipGO.GetComponent<SpaceshipAttribute>().Color = Color.blue;
+                Attribute.Color = Color.blue;
                 break;
             case 1:
-                spaceshipGO.GetComponent<SpaceshipAttribute>().Color = Color.green;
+                Attribute.Color = Color.green;
                 break;
             case 2:
-                spaceshipGO.GetComponent<SpaceshipAttribute>().Color = Color.red;
+                Attribute.Color = Color.red;
                 break;
             case 3:
-                spaceshipGO.GetComponent<SpaceshipAttribute>().Color = Color.magenta;
+                Attribute.Color = Color.magenta;
                 break;
             default:
                 break;
         }
+
+        Attribute.PlayerName = MultiplayerScenePlayers.PlayerNames[i];
     }
 
     private void StartLevel()
@@ -128,7 +131,7 @@ public class GameController : MonoBehaviour
 
     internal void RemovePlayer(GameObject gameObject)
     {
-        for (int i = 0; i < MultiplayerScenePlayerNumber.Number; i++)
+        for (int i = 0; i < MultiplayerScenePlayers.PlayerNumber; i++)
         {
             if (Players[i] == gameObject)
             {

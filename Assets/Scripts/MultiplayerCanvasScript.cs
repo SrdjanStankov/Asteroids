@@ -19,13 +19,13 @@ public class MultiplayerCanvasScript : MonoBehaviour
     void Start()
     {
         controller = FindObjectOfType<GameController>();
-        playerTexts = new RectTransform[MultiplayerScenePlayerNumber.Number];
+        playerTexts = new RectTransform[MultiplayerScenePlayers.PlayerNumber];
 
-        playerNameTexts = new TMP_Text[MultiplayerScenePlayerNumber.Number];
-        playerScoreTexts = new TMP_Text[MultiplayerScenePlayerNumber.Number];
-        playerLifeTexts = new TMP_Text[MultiplayerScenePlayerNumber.Number];
+        playerNameTexts = new TMP_Text[MultiplayerScenePlayers.PlayerNumber];
+        playerScoreTexts = new TMP_Text[MultiplayerScenePlayers.PlayerNumber];
+        playerLifeTexts = new TMP_Text[MultiplayerScenePlayers.PlayerNumber];
 
-        for (int i = 0; i < MultiplayerScenePlayerNumber.Number; i++)
+        for (int i = 0; i < MultiplayerScenePlayers.PlayerNumber; i++)
         {
             playerTexts[i] = Instantiate(PlayerTextsPrefab, transform);
             playerTexts[i].position = new Vector3(playerTexts[i].position.x, playerTexts[i].position.y - (playerTexts[i].rect.height * i), playerTexts[i].position.z);
@@ -46,7 +46,7 @@ public class MultiplayerCanvasScript : MonoBehaviour
 
     void Update()
     {
-        for (int i = 0; i < MultiplayerScenePlayerNumber.Number; i++)
+        for (int i = 0; i < MultiplayerScenePlayers.PlayerNumber; i++)
         {
             if (controller.Players[i] is null)
             {

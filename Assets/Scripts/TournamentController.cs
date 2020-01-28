@@ -83,7 +83,7 @@ public class TournamentController : MonoBehaviour
         if (brackets.Count > 0)
         {
             // spawn game controller sa 2 igraca na brackets[0] i brackets[1]
-            MultiplayerScenePlayerNumber.Number = 2;
+            MultiplayerScenePlayers.PlayerNumber = 2;
             if (gameController == null)
             {
                 gameController = GameControllerObj.AddComponent<GameController>();
