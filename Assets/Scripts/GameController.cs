@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -7,6 +8,8 @@ public class GameController : MonoBehaviour
 {
     public GameObject PlayerPrefab;
     public GameObject AsteroidPrefab;
+    public Canvas WinningCanvas;
+    public Canvas RegularCanvas;
 
     [SerializeField] private float currentAsteroidSpeed = 2.5f;
     [SerializeField] private float spawnPowerUpInterval = 30;
@@ -20,6 +23,7 @@ public class GameController : MonoBehaviour
 
     private float cameraZOffset;
     private float nextPowerUpTime = 0;
+    private bool end = false;
 
     public GameObject[] Players { get; set; }
     public float SpawnPowerUpInterval { get => spawnPowerUpInterval; set => spawnPowerUpInterval = value; }
@@ -29,6 +33,9 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        end = false;
+        WinningCanvas.gameObject.SetActive(false);
+        RegularCanvas.gameObject.SetActive(true);
         if (MultiplayerScenePlayers.PlayerNumber == 0)
         {
             MultiplayerScenePlayers.PlayerNumber = 1;
@@ -193,6 +200,11 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        if (end)
+        {
+            return;
+        }
+
         if (ArePlayersAlive())
         {
             if (nextPowerUpTime <= Time.time)
@@ -211,8 +223,9 @@ public class GameController : MonoBehaviour
             if (string.IsNullOrEmpty(winner.Item1))
             {
                 winner = destroyedShips.OrderByDescending(x => x.Item2).FirstOrDefault();
-                Debug.Log(winner);
+                //Debug.Log(winner);
                 // show winning screen with winner and score
+                ShowWinningCanvas();
             }
         }
 
@@ -237,6 +250,15 @@ public class GameController : MonoBehaviour
                     mng.Managers.getInstance().input.stopListening()
          
          */
+    }
+
+    private void ShowWinningCanvas()
+    {
+        WinningCanvas.transform.GetChild(0).GetComponent<TMP_Text>().text = Winner.Item1;
+        WinningCanvas.transform.GetChild(1).GetComponent<TMP_Text>().text = Winner.Item2.ToString();
+        WinningCanvas.gameObject.SetActive(true);
+        RegularCanvas.gameObject.SetActive(false);
+        end = true;
     }
 
     private bool ArePlayersAlive()
