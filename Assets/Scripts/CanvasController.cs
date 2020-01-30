@@ -43,29 +43,23 @@ public class CanvasController : MonoBehaviour
 
     public void TwoplayerBtnClick()
     {
-        // TODO: load multiplayer scene with 2 players
         MultiplayerScenePlayers.PlayerNumber = 2;
         DisableAllCanvases();
         TwoPlayerCanvas.gameObject.SetActive(true);
-        //SceneManager.LoadScene("MultiplayerScene");
     }
 
     public void ThreeplayerBtnClick()
     {
-        // TODO: load multiplayer scene with 3 players
         MultiplayerScenePlayers.PlayerNumber = 3;
         DisableAllCanvases();
         ThreePlayerCanvas.gameObject.SetActive(true);
-        //SceneManager.LoadScene("MultiplayerScene");
     }
 
     public void FourPlayerBtnClick()
     {
-        // TODO: load multiplayer scene with 4 players
         MultiplayerScenePlayers.PlayerNumber = 4;
         DisableAllCanvases();
         FourPlayerCanvas.gameObject.SetActive(true);
-        //SceneManager.LoadScene("MultiplayerScene");
     }
 
     public void TournamentplayerBtnClick()
