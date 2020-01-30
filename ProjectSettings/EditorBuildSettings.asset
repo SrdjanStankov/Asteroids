@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MultiplayerScene.unity
     guid: 71e2e9d349287294292849654c0fb923
+  - enabled: 1
+    path: Assets/Scenes/TournamentScene.unity
+    guid: 938cc7bd0f53a81488814b0fcbdad6f2
   m_configObjects: {}

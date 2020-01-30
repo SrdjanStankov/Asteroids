@@ -1,22 +1,29 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TournamentController : MonoBehaviour
 {
     public GameObject PlayerPrefab;
     public GameObject AsteroidPrefab;
     public GameObject GameControllerObj;
-    public GameObject MultiplayerCanvas;
-    [SerializeField] private List<string> playerNames = new List<string>();
+    public Canvas MultiplayerCanvas;
+    public Canvas WinningCanvas;
 
+    private List<string> playerNames = new List<string>();
     private List<(string, string)> brackets = new List<(string, string)>();
     private List<string> bracketsWinners = new List<string>();
     private GameController gameController;
-    private GameObject multiplayerCanvasObj;
+    private Canvas multiplayerCanvas;
+
+    private bool done = false;
 
     // Start is called before the first frame update
     private void Start()
     {
+        playerNames.AddRange(MultiplayerScenePlayers.PlayerNames);
         SetupBrackets();
         SpawnBracket();
     }
@@ -24,6 +31,18 @@ public class TournamentController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (bracketsWinners.Count == 1 && brackets.Count <= 0 && !done)
+        {
+            // logika za kraj igre
+            var btnObj = WinningCanvas.transform.GetChild(2);
+            btnObj.GetChild(0).GetComponent<TMP_Text>().text = "Back to main menu";
+            var btnOnClick = btnObj.GetComponent<Button>().onClick;
+            btnOnClick.SetPersistentListenerState(0, UnityEngine.Events.UnityEventCallState.Off);
+            btnOnClick.RemoveAllListeners();
+            btnOnClick.AddListener(() => EndGameEvent());
+            done = true;
+        }
+
         if (gameController is null)
         {
             return;
@@ -41,18 +60,10 @@ public class TournamentController : MonoBehaviour
         }
 
         var winnerName = gameController.Winner;
-        print($"bracket winner is {winnerName}");
         bracketsWinners.Add(winnerName.Item1);
         DestroyImmediate(gameController);
-        DestroyImmediate(multiplayerCanvasObj);
+        DestroyImmediate(multiplayerCanvas.gameObject);
         brackets.RemoveAt(0);
-
-        foreach (var item in GameObject.FindGameObjectsWithTag("Asteroid"))
-        {
-            Destroy(item.gameObject);
-        }
-
-        SpawnBracket();
     }
 
     private void SetupBrackets()
@@ -71,8 +82,22 @@ public class TournamentController : MonoBehaviour
         return player;
     }
 
-    private void SpawnBracket()
+    public void SpawnBracket()
     {
+        if (gameController != null)
+        {
+            //var winnerName = gameController.Winner;
+            //bracketsWinners.Add(winnerName.Item1);
+            //DestroyImmediate(gameController);
+            //DestroyImmediate(multiplayerCanvas.gameObject);
+            //brackets.RemoveAt(0);
+        }
+
+        foreach (var item in GameObject.FindGameObjectsWithTag("Asteroid"))
+        {
+            Destroy(item.gameObject);
+        }
+
         if (bracketsWinners.Count >= 2)
         {
             brackets.Add((bracketsWinners[0], bracketsWinners[1]));
@@ -82,22 +107,23 @@ public class TournamentController : MonoBehaviour
 
         if (brackets.Count > 0)
         {
-            // spawn game controller sa 2 igraca na brackets[0] i brackets[1]
             MultiplayerScenePlayers.PlayerNumber = 2;
             if (gameController == null)
             {
                 gameController = GameControllerObj.AddComponent<GameController>();
                 gameController.AsteroidPrefab = AsteroidPrefab;
                 gameController.PlayerPrefab = PlayerPrefab;
-                multiplayerCanvasObj = Instantiate(MultiplayerCanvas);
-                multiplayerCanvasObj.SetActive(true);
+                gameController.WinningCanvas = WinningCanvas;
+                WinningCanvas.gameObject.SetActive(false);
+                multiplayerCanvas = Instantiate(MultiplayerCanvas);
+                multiplayerCanvas.gameObject.SetActive(true);
+                gameController.RegularCanvas = multiplayerCanvas;
             }
         }
+    }
 
-        if (bracketsWinners.Count == 1 && brackets.Count <=0)
-        {
-            // logika za kraj igre
-            print($"Winner {bracketsWinners[0]}");
-        }
+    private void EndGameEvent()
+    {
+        SceneManager.LoadScene(0);
     }
 }

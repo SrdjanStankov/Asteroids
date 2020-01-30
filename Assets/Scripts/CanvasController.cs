@@ -84,6 +84,11 @@ public class CanvasController : MonoBehaviour
     public void StartButtonTournamentClick()
     {
         // TODO: collect player names and put them inside static class
+        MultiplayerScenePlayers.PlayerNames.Add("aaa");
+        MultiplayerScenePlayers.PlayerNames.Add("bbb");
+        MultiplayerScenePlayers.PlayerNames.Add("ccc");
+        MultiplayerScenePlayers.PlayerNames.Add("ddd");
+        MultiplayerScenePlayers.PlayerNumber = 4;
 
         SceneManager.LoadScene("TournamentScene");
     }
