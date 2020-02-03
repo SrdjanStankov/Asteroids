@@ -119,7 +119,21 @@ public class CanvasController : MonoBehaviour
 
     public void OnTournamentPlayerCountChanged(int optionId)
     {
-        Debug.Log(optionId);
+        switch (optionId)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                break;
+        }
     }
 
     private bool IsInputFieldFromCanvasValid(Canvas canvas, int count)
