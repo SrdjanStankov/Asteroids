@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using TMPro;
+﻿using TMPro;
+using UnityEngine;
 
 public class MultiplayerCanvasScript : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class MultiplayerCanvasScript : MonoBehaviour
     private TMP_Text[] playerScoreTexts;
     private TMP_Text[] playerLifeTexts;
 
-    void Start()
+    private void Start()
     {
         controller = FindObjectOfType<GameController>();
         playerTexts = new RectTransform[MultiplayerScenePlayers.PlayerNumber];
@@ -44,7 +44,7 @@ public class MultiplayerCanvasScript : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         for (int i = 0; i < MultiplayerScenePlayers.PlayerNumber; i++)
         {

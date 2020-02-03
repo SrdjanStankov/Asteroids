@@ -17,6 +17,8 @@ public class CanvasController : MonoBehaviour
     {
         DisableAllCanvases();
         MainMenuCanvas.gameObject.SetActive(true);
+        MultiplayerScenePlayers.PlayerNames = new List<string>();
+        MultiplayerScenePlayers.PlayerNumber = 0;
     }
 
     public void SingleplayerBtnClick()
@@ -64,7 +66,6 @@ public class CanvasController : MonoBehaviour
 
     public void TournamentplayerBtnClick()
     {
-        // TODO: load tournament scene
         DisableAllCanvases();
         TournamentCanvas.gameObject.SetActive(true);
     }
@@ -96,7 +97,7 @@ public class CanvasController : MonoBehaviour
     {
         if (IsInputFieldFromCanvasValid(TwoPlayerCanvas, 2))
         {
-            SceneManager.LoadScene("multiplayerscene");
+            SceneManager.LoadScene("MultiplayerScene");
         }
     }
 
@@ -104,7 +105,7 @@ public class CanvasController : MonoBehaviour
     {
         if (IsInputFieldFromCanvasValid(ThreePlayerCanvas, 3))
         {
-            SceneManager.LoadScene("MultiplayerScene"); 
+            SceneManager.LoadScene("MultiplayerScene");
         }
     }
 
@@ -123,20 +124,20 @@ public class CanvasController : MonoBehaviour
 
     private bool IsInputFieldFromCanvasValid(Canvas canvas, int count)
     {
-        var retVal = new List<TMP_InputField>(count);
-        var valid = true;
+        var inputFields = new List<TMP_InputField>(count);
+        bool inputFieldValid = true;
+
         for (int i = 0; i < count; i++)
         {
-            retVal.Add(canvas.transform.GetChild(i).GetChild(1).GetComponent<TMP_InputField>());
-            MultiplayerScenePlayers.PlayerNames[i] = retVal[i].text;
+            inputFields.Add(canvas.transform.GetChild(i).GetChild(1).GetComponent<TMP_InputField>());
         }
 
-        foreach (var item in retVal)
+        foreach (var item in inputFields)
         {
             if (string.IsNullOrEmpty(item.text) || string.IsNullOrWhiteSpace(item.text))
             {
                 item.GetComponent<Image>().color = Color.red;
-                valid = false;
+                inputFieldValid = false;
             }
             else
             {
@@ -144,7 +145,15 @@ public class CanvasController : MonoBehaviour
             }
         }
 
-        return valid;
+        if (inputFieldValid)
+        {
+            foreach (var item in inputFields)
+            {
+                MultiplayerScenePlayers.PlayerNames.Add(item.text);
+            }
+        }
+
+        return inputFieldValid;
     }
 
     private void DisableAllCanvases()

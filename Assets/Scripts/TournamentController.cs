@@ -20,7 +20,6 @@ public class TournamentController : MonoBehaviour
 
     private bool done = false;
 
-    // Start is called before the first frame update
     private void Start()
     {
         playerNames.AddRange(MultiplayerScenePlayers.PlayerNames);
@@ -28,7 +27,6 @@ public class TournamentController : MonoBehaviour
         SpawnBracket();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (bracketsWinners.Count == 1 && brackets.Count <= 0 && !done)
@@ -76,23 +74,14 @@ public class TournamentController : MonoBehaviour
 
     private string GetPlayer()
     {
-        var index = Random.Range(0, playerNames.Count);
-        var player = playerNames[index];
+        int index = Random.Range(0, playerNames.Count);
+        string player = playerNames[index];
         playerNames.RemoveAt(index);
         return player;
     }
 
     public void SpawnBracket()
     {
-        if (gameController != null)
-        {
-            //var winnerName = gameController.Winner;
-            //bracketsWinners.Add(winnerName.Item1);
-            //DestroyImmediate(gameController);
-            //DestroyImmediate(multiplayerCanvas.gameObject);
-            //brackets.RemoveAt(0);
-        }
-
         foreach (var item in GameObject.FindGameObjectsWithTag("Asteroid"))
         {
             Destroy(item.gameObject);
@@ -118,6 +107,8 @@ public class TournamentController : MonoBehaviour
                 multiplayerCanvas = Instantiate(MultiplayerCanvas);
                 multiplayerCanvas.gameObject.SetActive(true);
                 gameController.RegularCanvas = multiplayerCanvas;
+                gameController.PlayerNames.Add(brackets[0].Item1);
+                gameController.PlayerNames.Add(brackets[0].Item2);
             }
         }
     }

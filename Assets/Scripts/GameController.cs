@@ -2,6 +2,7 @@
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameController : MonoBehaviour
@@ -30,10 +31,15 @@ public class GameController : MonoBehaviour
     public int AsteroidsToDestroy { get; set; } = 0;
     public int CurrentLvl { get => currentLvl; private set => currentLvl = value; }
     public (string, float) Winner { get => winner; set => winner = value; }
+    public List<string> PlayerNames { get; set; } = new List<string>();
 
     private void Start()
     {
         end = false;
+        if (PlayerNames.Count <= 0)
+        {
+            MultiplayerScenePlayers.PlayerNames.ForEach((item) => PlayerNames.Add(item));
+        }
         WinningCanvas.gameObject.SetActive(false);
         RegularCanvas.gameObject.SetActive(true);
         if (MultiplayerScenePlayers.PlayerNumber == 0)
@@ -82,7 +88,7 @@ public class GameController : MonoBehaviour
                 break;
         }
 
-        Attribute.PlayerName = MultiplayerScenePlayers.PlayerNames[i];
+        Attribute.PlayerName = PlayerNames[i];
     }
 
     private void StartLevel()
@@ -224,32 +230,9 @@ public class GameController : MonoBehaviour
             {
                 winner = destroyedShips.OrderByDescending(x => x.Item2).FirstOrDefault();
                 //Debug.Log(winner);
-                // show winning screen with winner and score
                 ShowWinningCanvas();
             }
         }
-
-
-
-        /*
-         
-        else:
-            if self.winner is None:
-                self.winner = max(self.scores, key = lambda x: x[2])
-                print(f"Winner is {self.winner[0]}: {self.winner[2]}")
-            if not self.isTournament:
-                if not self.isOver: 
-                    for item in self.destroyedShipAttribute:
-                        mng.Managers.getInstance().scene.removeItem(item)
-                    for item in mng.Managers.getInstance().objects.FindObjectsOfType("Asteroid"):
-                        mng.Managers.getInstance().objects.Destroy(item.Id)
-                    self.isOver = True
-                else:
-                    self.noti.update.disconnect(self.update)
-                    mng.Managers.getInstance().scene.backFromMultiplayer()
-                    mng.Managers.getInstance().input.stopListening()
-         
-         */
     }
 
     private void ShowWinningCanvas()
@@ -271,5 +254,10 @@ public class GameController : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("MenuScene");
     }
 }
