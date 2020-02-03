@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -42,9 +43,20 @@ public class GameController : MonoBehaviour
         }
         WinningCanvas.gameObject.SetActive(false);
         RegularCanvas.gameObject.SetActive(true);
+#if UNITY_EDITOR
         if (MultiplayerScenePlayers.PlayerNumber == 0)
         {
             MultiplayerScenePlayers.PlayerNumber = 1;
+        }
+#endif
+        if (MultiplayerScenePlayers.PlayerNumber == 1)
+        {
+            var playerNameFilePath = $"{Directory.GetParent(Application.dataPath).FullName}\\Player Name.txt";
+            if (!File.Exists(playerNameFilePath))
+            {
+                File.WriteAllText(playerNameFilePath, "Default");
+            }
+            PlayerNames.Add(File.ReadAllText(playerNameFilePath));
         }
         cameraMain = Camera.main;
         cameraZOffset = cameraMain.transform.position.z + 10;
