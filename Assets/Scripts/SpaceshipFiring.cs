@@ -4,6 +4,7 @@ public class SpaceshipFiring : MonoBehaviour
 {
     [SerializeField] private KeyCode fire;
     [SerializeField] private GameObject projectile;
+    [SerializeField] private AudioClip shotSound;
 
     private Sprite projectileSprite;
     private SpaceshipAttribute attribute;
@@ -15,6 +16,7 @@ public class SpaceshipFiring : MonoBehaviour
     private void Start()
     {
         attribute = GetComponent<SpaceshipAttribute>();
+        shotSound = Resources.Load<AudioClip>($"shotPlayer{MultiplayerScenePlayers.GetRandomNonRepeatingNumberBasedOnPlayerCount() + 1}");
         switch (attribute.Color.ToString())
         {
             case "RGBA(0.000, 0.000, 1.000, 1.000)":
@@ -40,6 +42,7 @@ public class SpaceshipFiring : MonoBehaviour
         if (Input.GetKey(Fire) && Time.time > nextShootTime)
         {
             CreateProjectile();
+            AudioSource.PlayClipAtPoint(shotSound, Vector3.zero);
             nextShootTime = attribute.FireRate + Time.time;
         }
     }

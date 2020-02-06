@@ -308,6 +308,7 @@ MonoBehaviour:
   fire: 0
   projectile: {fileID: 6353985643849006342, guid: e1967c28ddbcac94f9528181a10e72ec,
     type: 3}
+  shotSound: {fileID: 0}
 --- !u!50 &-5067122859655334906
 Rigidbody2D:
   serializedVersion: 4
