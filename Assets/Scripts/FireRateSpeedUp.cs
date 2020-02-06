@@ -18,5 +18,6 @@ public class FireRateSpeedUp : Pickupable
     {
         attribute = collision.GetComponent<SpaceshipAttribute>();
         attribute.FireRate /= 2;
+        GetComponent<AudioSource>().Play();
     }
 }

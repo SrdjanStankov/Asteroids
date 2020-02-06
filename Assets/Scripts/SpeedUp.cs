@@ -20,5 +20,6 @@ public class SpeedUp : Pickupable
         spaceshipMovement = collision.GetComponent<SpaceshipAttribute>();
         spaceshipMovement.FlightSpeed *= 2;
         spaceshipMovement.RotationSpeed *= 2;
+        GetComponent<AudioSource>().Play();
     }
 }
