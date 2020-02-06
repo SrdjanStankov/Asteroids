@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,12 +14,19 @@ public class CanvasController : MonoBehaviour
     public Canvas ThreePlayerCanvas;
     public Canvas FourPlayerCanvas;
 
+    public RectTransform TournamentPlayerNamesPanel;
+
+    public GameObject NameInputFieldPrefab;
+
+    private List<TMP_InputField> nameInputFields = new List<TMP_InputField>();
+
     private void Start()
     {
         DisableAllCanvases();
         MainMenuCanvas.gameObject.SetActive(true);
         MultiplayerScenePlayers.PlayerNames = new List<string>();
         MultiplayerScenePlayers.PlayerNumber = 0;
+        OnTournamentPlayerCountChanged(0);
     }
 
     public void SingleplayerBtnClick()
@@ -84,15 +92,37 @@ public class CanvasController : MonoBehaviour
 
     public void StartButtonTournamentClick()
     {
-        // TODO: collect player names and put them inside static class
-        MultiplayerScenePlayers.PlayerNames.Add("aaa");
-        MultiplayerScenePlayers.PlayerNames.Add("bbb");
-        MultiplayerScenePlayers.PlayerNames.Add("ccc");
-        MultiplayerScenePlayers.PlayerNames.Add("ddd");
-        MultiplayerScenePlayers.PlayerNumber = 4;
-
-        SceneManager.LoadScene("TournamentScene");
+        bool inputFieldValid = ColorFieldsBasedOnCorrection();
+        if (inputFieldValid)
+        {
+            foreach (var item in nameInputFields)
+            {
+                MultiplayerScenePlayers.PlayerNames.Add(item.text);
+            }
+            MultiplayerScenePlayers.PlayerNumber = nameInputFields.Count;
+            SceneManager.LoadScene("TournamentScene");
+        }
     }
+
+    private bool ColorFieldsBasedOnCorrection()
+    {
+        bool inputFieldValid = true;
+        foreach (var item in nameInputFields)
+        {
+            if (string.IsNullOrEmpty(item.text) || string.IsNullOrWhiteSpace(item.text))
+            {
+                item.GetComponent<Image>().color = Color.red;
+                inputFieldValid = false;
+            }
+            else
+            {
+                item.GetComponent<Image>().color = Color.white;
+            }
+        }
+
+        return inputFieldValid;
+    }
+
     public void StartButton2PlayerClick()
     {
         if (IsInputFieldFromCanvasValid(TwoPlayerCanvas, 2))
@@ -119,21 +149,21 @@ public class CanvasController : MonoBehaviour
 
     public void OnTournamentPlayerCountChanged(int optionId)
     {
-        switch (optionId)
+        DestroyInputFields();
+        for (int i = 0; i < 2 + (2 * optionId); i++)
         {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            default:
-                break;
+            nameInputFields.Add(Instantiate(NameInputFieldPrefab, TournamentPlayerNamesPanel).GetComponent<TMP_InputField>());
+            nameInputFields.LastOrDefault().onDeselect.AddListener((_) => ColorFieldsBasedOnCorrection());
         }
+    }
+
+    private void DestroyInputFields()
+    {
+        foreach (var item in nameInputFields)
+        {
+            Destroy(item.gameObject);
+        }
+        nameInputFields.Clear();
     }
 
     private bool IsInputFieldFromCanvasValid(Canvas canvas, int count)
