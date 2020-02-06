@@ -195,14 +195,17 @@ public class GameController : MonoBehaviour
                 CreateAsteroid(AsteroidType.Medium, asteroid.gameObject.transform.position);
                 CreateAsteroid(AsteroidType.Medium, asteroid.gameObject.transform.position);
                 Destroy(asteroid.gameObject);
+                AudioSource.PlayClipAtPoint(Resources.Load<AudioClip>("largeAsteroid"), Vector3.zero);
                 break;
             case AsteroidType.Medium:
                 CreateAsteroid(AsteroidType.Small, asteroid.gameObject.transform.position);
                 CreateAsteroid(AsteroidType.Small, asteroid.gameObject.transform.position);
                 Destroy(asteroid.gameObject);
+                AudioSource.PlayClipAtPoint(Resources.Load<AudioClip>("mediumAsteroid"), Vector3.zero);
                 break;
             case AsteroidType.Small:
                 Destroy(asteroid.gameObject);
+                AudioSource.PlayClipAtPoint(Resources.Load<AudioClip>("smallAsteroid"), Vector3.zero);
                 break;
             default:
                 break;
