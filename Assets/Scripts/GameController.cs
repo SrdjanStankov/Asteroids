@@ -165,7 +165,7 @@ public class GameController : MonoBehaviour
                 destroyedShips.Add((attribute.PlayerName, attribute.Score));
             }
         }
-        Destroy(gameObject);
+        Destroy(gameObject, 2f);
     }
 
     private Vector3 GetSpwnPositionAsteroid()

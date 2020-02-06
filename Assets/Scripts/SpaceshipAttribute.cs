@@ -52,6 +52,7 @@ public class SpaceshipAttribute : MonoBehaviour
     {
         Lives -= amount;
         transform.position = new Vector3(0, 0, 10);
+        GetComponent<AudioSource>().Play();
         if (Lives <= 0)
         {
             Die();
@@ -61,5 +62,7 @@ public class SpaceshipAttribute : MonoBehaviour
     private void Die()
     {
         FindObjectOfType<GameController>().RemovePlayer(gameObject);
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<SpriteRenderer>().enabled = false;
     }
 }
