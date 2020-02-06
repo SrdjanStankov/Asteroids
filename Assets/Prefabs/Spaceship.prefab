@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3040114197177780189}
   - component: {fileID: -5067122859655334906}
   - component: {fileID: 8833476780818558859}
-  - component: {fileID: 6835307927516585281}
+  - component: {fileID: 1654127384446812791}
   m_Layer: 8
   m_Name: Spaceship
   m_TagString: Player
@@ -429,7 +429,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6835307927516585281
+--- !u!114 &1654127384446812791
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

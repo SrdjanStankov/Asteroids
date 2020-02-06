@@ -22,6 +22,8 @@ public class TournamentController : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         playerNames.AddRange(MultiplayerScenePlayers.PlayerNames);
         SetupBrackets();
         SpawnBracket();

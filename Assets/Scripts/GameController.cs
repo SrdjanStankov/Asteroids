@@ -36,6 +36,8 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         end = false;
         if (PlayerNames.Count <= 0)
         {
@@ -246,6 +248,8 @@ public class GameController : MonoBehaviour
                 winner = destroyedShips.OrderByDescending(x => x.Item2).FirstOrDefault();
                 //Debug.Log(winner);
                 ShowWinningCanvas();
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
             }
         }
     }

@@ -27,6 +27,8 @@ public class CanvasController : MonoBehaviour
         MultiplayerScenePlayers.PlayerNames = new List<string>();
         MultiplayerScenePlayers.PlayerNumber = 0;
         OnTournamentPlayerCountChanged(0);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void SingleplayerBtnClick()
