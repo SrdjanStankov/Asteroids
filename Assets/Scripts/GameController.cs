@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -66,6 +67,12 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < MultiplayerScenePlayers.PlayerNumber; i++)
         {
             StupPlayer(i);
+        }
+        if (powerUps.Count <= 0)
+        {
+            powerUps.Add(Resources.Load<GameObject>("Extra Life"));
+            powerUps.Add(Resources.Load<GameObject>("Fire rate speed up"));
+            powerUps.Add(Resources.Load<GameObject>("Speed Up"));
         }
     }
 
